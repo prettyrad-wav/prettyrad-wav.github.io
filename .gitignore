@@ -145,6 +145,7 @@ vite.config.ts.timestamp-*
 
 # Codebox files
 m16-resources/
+m16-binder/
 
 # Build output
 dist-ssr
