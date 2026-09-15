@@ -129,8 +129,6 @@ separate app subdirectory to account for.
 - **Login page is never linked** from header, footer, or mobile nav. It's reachable only
   by typing the URL directly (or an optional secret key combo) — never surfaced as a
   clickable link anywhere.
-- **`submission-summary.md`** must never be committed to GitHub; it is submitted
-  separately through the bootcamp platform.
 - **`m16-resources/`** is bootcamp reference material only — already gitignored, must stay
   out of the shipped app.
 
@@ -166,6 +164,10 @@ separate app subdirectory to account for.
   `feature/*` branches per the branching model above, not directly on `main`.
 - **No dead scaffolding:** remove the default Vite template boilerplate (counter demo,
   placeholder logos/copy in `App.jsx`/`App.css`) before building real pages on top of it.
+- **Comments:** as each feature is implemented, add comments throughout its code
+  explaining what each section does — component responsibilities, non-trivial logic
+  blocks, data structures, and config files (`vite.config.js`, `deploy.yml`, etc.) should
+  all carry brief explanatory comments so the codebase reads clearly on its own.
 
 ## 6. Global Definition of Done
 
