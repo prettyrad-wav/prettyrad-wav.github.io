@@ -13,7 +13,7 @@
 
   --sans: "Orbitron", sans-serif;
   --heading: "Press Start 2P", system-ui;
-  --mono: ui-monospace, Consolas, monospace;
+  --mono: "Share Tech Mono", monospace;
 
   font: 18px/145% var(--sans);
   letter-spacing: 0.18px;
@@ -48,6 +48,14 @@
 
 body {
   margin: 0;
+  /* Bootstrap's reboot sets an opaque body background (--bs-body-bg); that
+     paints above the fixed, z-index:-1 background video (a descendant can
+     never paint behind its own ancestor's background, no matter its
+     z-index), hiding the video entirely. Overriding it to transparent lets
+     the html-level --bg (set in :root above) act as the canvas backdrop —
+     visible only where the video is absent/hidden/failed to load — while
+     the video shows through everywhere else. */
+  background: transparent;
 }
 
 #root {

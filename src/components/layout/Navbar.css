@@ -5,6 +5,7 @@
 
 .site-header {
   border-bottom: 1px solid var(--border);
+  max-height: 10vh;
 }
 
 .site-header .nav-link {
@@ -25,6 +26,7 @@
 
 .logo {
   max-width: 30%;
+  max-height: 30vh;
   display: block;
 }
 

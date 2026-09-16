@@ -1,9 +1,10 @@
 import { Container } from 'react-bootstrap'
+import './Pages.css'
 
 // Placeholder — full content specified in link-page.feature.md.
 function Links() {
   return (
-    <Container className="py-5 text-center">
+    <Container className="py-5 text-center page-bg">
       <h1>Links</h1>
       <p>Links page content coming soon.</p>
     </Container>

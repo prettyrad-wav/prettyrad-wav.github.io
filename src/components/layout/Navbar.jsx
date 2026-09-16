@@ -3,7 +3,7 @@ import logo from '../../assets/retrotangle-tranparent.png'
 import { navLinks } from './navLinks'
 import './Navbar.css'
 
-// Header/nav for every public page (FR-02, FR-03, FR-04, FR-06).
+// Header/nav for every public page (FR-02, FR-03, FR-04, FR-07).
 // React-Bootstrap's Navbar/Nav/Container supply the structure and styling;
 // the desktop/mobile split still uses our own `desktop-nav`/`mobile-nav`
 // classes (Navbar.css) instead of Bootstrap's `d-md-*` utilities, because
@@ -20,7 +20,7 @@ function Navbar({ activePage, onNavigate }) {
             className="logo-button"
             onClick={() => onNavigate('home')}
           >
-            {/* Logo generated with Recraft (AI image tool) — see header-footer.feature.md FR-04 */}
+            {/* Logo generated with Chatgpt (AI image tool) — see header-footer.feature.md FR-04 */}
             <img src={logo} alt="Nick Hobbs logo" className="logo" />
           </BsNavbar.Brand>
 

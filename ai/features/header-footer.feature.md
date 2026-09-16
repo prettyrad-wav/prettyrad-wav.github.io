@@ -35,6 +35,9 @@ inside of.
 - The AI-generated personal logo image, used in the header, linking to the Home page.
 - Responsive behavior of the header and footer: horizontal nav on desktop (>768px), bottom icon
   nav on mobile (≤768px), with no overflow or unreadable text at either width.
+- A looping background video, rendered by `Main` behind every public page's content (header,
+  footer, and all page bodies included), giving the whole site a consistent retro/synthwave
+  atmosphere.
 
 ### Out of Scope
 
@@ -114,7 +117,29 @@ address) plus social links, and a copyright notice.
 Scrolling to the bottom of any public page shows the same footer with a working `mailto:` email
 link, at least one social link, and a copyright line (e.g. "© 2026 Nick Hobbs").
 
-### FR-06 — Responsive Navigation Layout
+### FR-06 — Global Background Video
+
+**Requirement:**
+`Main` renders a looping, muted, autoplaying background video
+(`src/assets/retro-road-bg.mp4`, a ~22-second retro synthwave road loop, slowed down from the
+original capture for a calmer feel) behind the header, footer, and every page's content, visible
+on every public page. The video must not block or intercept clicks on any content above it, must
+not prevent the page from scrolling, and must respect `prefers-reduced-motion` (paused or not
+rendered for visitors who have reduced motion enabled).
+
+The shipped file is a compressed, web-ready encode (H.264, 1280×720, no audio track, `faststart`
+for progressive playback, ~3.9MB) produced with `ffmpeg` from the original `retro-road-slow.mov`
+master (1920×1080, uncompressed PCM audio, ~46.5MB) — the raw `.mov` is a source asset kept
+alongside it for future re-encodes, not the file the site loads.
+
+**Expected Result:**
+Every public page (Home, Portfolio, Links, Contact) shows the same looping video filling the
+viewport behind all content; the loop restarts seamlessly with no visible pause or flash; all
+links, buttons, and text remain clickable/readable on top of it; a visitor with
+`prefers-reduced-motion: reduce` sees a static frame (or the page's fallback background color)
+instead of a playing video.
+
+### FR-07 — Responsive Navigation Layout
 
 **Requirement:**
 Header/footer navigation adapts at the `768px` breakpoint: horizontal links in the header on
@@ -164,6 +189,10 @@ layout elements with no external requests.
 - `Footer` (`src/components/layout/Footer.jsx`) - new. Renders contact info, social links, and
   the copyright notice.
 - `App` (`src/App.jsx`) - existing. Mounts the router and the `Main` layout around routed pages.
+- `Main` also owns the background `<video>` element (looping, muted, `autoPlay`, `playsInline`)
+  sourced from `src/assets/retro-road-bg.mp4`, positioned behind
+  `Navbar`/page content/`Footer` via CSS (e.g. `position: fixed; z-index: -1`) rather than as a
+  separate component, since it has no independent behavior beyond looping.
 
 ### Endpoints
 
@@ -185,6 +214,7 @@ N/A — this feature makes no network or Supabase calls.
   page.
 - Rendered footer markup (contact email, social links, copyright text) - displayed on every
   public page.
+- The looping background video - rendered behind all content on every public page.
 
 ### Stored / Modified Data
 
@@ -204,6 +234,13 @@ N/A — this feature reads and writes no persistent storage.
   header or footer causes horizontal scrolling - checked by manual resize/DevTools responsive
   mode (client) - on failure: adjust CSS (max-width, flex-wrap, font sizing) until no overflow
   occurs.
+- **Background video does not block interaction:** the video element must sit behind all
+  interactive content (`z-index` below header/footer/page content) and must not capture pointer
+  events - checked by clicking nav links, footer links, and in-page content across all pages
+  (client) - on failure: add `pointer-events: none` to the video and/or fix stacking order.
+- **Reduced motion respected:** a `prefers-reduced-motion: reduce` media query check pauses the
+  video (or swaps it for a static background) - checked via OS/browser reduced-motion setting
+  (client) - on failure: add the media query and pause/hide logic.
 
 ---
 
@@ -218,11 +255,14 @@ N/A — this feature reads and writes no persistent storage.
   the URL path or causing a full page reload.
 - At widths >768px, nav links display horizontally in the header; at widths ≤768px, nav items
   display as icons in a bar fixed to the bottom of the viewport.
+- The background video plays automatically, muted, and loops seamlessly behind every public
+  page's content without user interaction.
 
 ### Error / Invalid Behavior
 
-N/A — there is no user input or network call in this feature that can fail; the header and
-footer always render from static, in-codebase data.
+- **Video fails to load (e.g. slow connection, unsupported format):** the page falls back to a
+  static background color/image rather than showing a broken video icon or blank white space;
+  no other content is affected.
 
 ### Empty / Edge Cases
 
@@ -231,6 +271,8 @@ footer always render from static, in-codebase data.
 - **Long page content / short page content:** the footer stays at the bottom of the page content
   (not pinned to the viewport bottom) regardless of how much content the active page renders
   above it.
+- **`prefers-reduced-motion: reduce` enabled:** the video is paused or replaced with a static
+  frame/background color instead of autoplaying.
 
 ---
 
@@ -251,8 +293,14 @@ footer always render from static, in-codebase data.
 - [ ] Clicking the logo from any public page navigates to the Home page. (FR-04)
 - [ ] The footer appears on every public page and contains an email contact link, at least one
       social link, and a copyright notice. (FR-05)
-- [ ] At viewport width >768px, header navigation links are displayed horizontally. (FR-06)
+- [ ] The looped background video plays, muted and autoplaying, behind all content on every
+      public page, and loops without a visible pause or flash. (FR-06)
+- [ ] Nav links, footer links, and page content remain clickable on top of the background video
+      on every public page. (FR-06)
+- [ ] With `prefers-reduced-motion: reduce` enabled, the video is paused or not shown, and a
+      fallback background is displayed instead. (FR-06)
+- [ ] At viewport width >768px, header navigation links are displayed horizontally. (FR-07)
 - [ ] At viewport width ≤768px, navigation is displayed as icons in a bar at the bottom of the
-      viewport. (FR-06)
+      viewport. (FR-07)
 - [ ] At both desktop and mobile widths, no header or footer element causes horizontal page
-      overflow, and the logo remains fully visible without distortion. (FR-06)
+      overflow, and the logo remains fully visible without distortion. (FR-07)
