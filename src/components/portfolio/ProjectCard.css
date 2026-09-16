@@ -1,0 +1,75 @@
+/* Same glass-panel card treatment as the Home page's skill cards
+   (SkillCard.css) — see EducationEntry.css for the shared rationale. Image
+   fills the card width above the text, like a typical project card, rather
+   than the small circular icon used for education/work entries. */
+.project-card {
+  background: var(--glass-bg-strong);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  box-shadow: var(--glass-shadow);
+  overflow: hidden;
+}
+
+.project-card-image {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: rgba(0, 0, 0, 0.2);
+  padding: 1rem;
+}
+
+.project-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.project-card .card-title {
+  font-family: var(--sans);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--glass-text);
+  margin-bottom: 8px;
+}
+
+.project-card-tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.project-card-tech-badge {
+  background: var(--accent-bg) !important;
+  border: 1px solid var(--glass-border);
+  color: var(--glass-text) !important;
+  font-family: var(--mono);
+  font-weight: 400;
+  font-size: 12px;
+  padding: 5px 10px;
+}
+
+.project-card .card-text {
+  color: var(--glass-text-muted);
+  font-size: 15px;
+  line-height: 150%;
+  margin-bottom: 16px;
+}
+
+.project-card-link {
+  display: inline-block;
+  color: var(--neon-cyan);
+  font-family: var(--sans);
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+  border-bottom: 1px solid var(--neon-cyan);
+  display: none;
+}
+
+.project-card-link:hover,
+.project-card-link:focus-visible {
+  color: var(--neon-pink);
+  border-color: var(--neon-pink);
+}
