@@ -1,4 +1,4 @@
-# Feature Specification — [Feature Name]
+# Feature Specification — Home Page
 
 **This document specifies one single feature. Read `ai-spec.md` first.**
 
@@ -7,298 +7,260 @@
 - If this feature needs an exception to a global rule, or an extra constraint, state it explicitly in section 2.
 - Implementation must satisfy **both** `ai-spec.md` and this document.
 
-<!--
-HOW TO COMPLETE THIS TEMPLATE
-
-- Copy this file once per feature and rename it, for example `login.feature.md`.
-- Replace every `[...]` placeholder with content taken from the project
-  requirements and your own analysis.
-- Instructions live in HTML comments like this one and stay invisible when the
-  Markdown is rendered. Delete each comment once its section is complete.
-- Write `N/A` for a subsection that genuinely does not apply to this feature
-  (a back-end-only feature has no page, for example). Do not invent content to
-  fill a heading.
-- Golden rule: if a rule is true for the whole project, it belongs in
-  `ai-spec.md`, not here.
--->
-
-- **Feature Name:** [name]
-- **Related Area:** [e.g. front-end, back-end, full-stack, database]
+- **Feature Name:** Home Page
+- **Related Area:** Front-end (page content)
 
 ---
 
 ## 1. Feature Goal
 
-<!--
-Describe the outcome this feature must provide: what capability is added, who or
-what uses it, and what result they get. Two or three sentences are enough.
-Describe what the feature achieves, not how it will be coded - no file names,
-no libraries, no implementation steps.
--->
-
-[feature goal]
+Give a visitor landing on the site a first screen that identifies who Nick Hobbs is, what he
+does, and why he's worth reading further about — a name, a role/tagline, a short bio, and an
+organized look at his technical and soft skills — so a hiring manager or recruiter can form a
+first impression within seconds of the page loading, without needing to visit any other page.
 
 ---
 
 ## 2. Feature Scope
 
-<!--
-Scope draws the boundary of this feature. It answers "what is this feature
-responsible for, and what is deliberately left out?"
-Stay at feature level: do not restate the project scope from `ai-spec.md`.
--->
-
 ### In Scope
 
-<!--
-What this feature must deliver. One line per item.
--->
-
-- [item]
-- [item]
+- The Home page content rendered inside the shared `Main` layout at the site root (`/`).
+- An introduction section: name, role/tagline, short bio paragraph.
+- A technical skills section: at least 3 skills, each with supporting text and an icon,
+  organized visually (cards/grid).
+- A soft skills / talents section: at least 3 items, each with supporting text and an icon,
+  organized visually (cards/grid).
+- Clear visual separation between the page's sections (spacing, background, or dividers).
+- At least 2 AI-generated images used within this page's content, with the AI tool documented.
 
 ### Out of Scope
 
-<!--
-Related behaviour that could look like part of this feature but is intentionally
-excluded. Name where it lives instead when you know (another feature, a later
-step, or nowhere yet).
--->
-
-- [excluded item]
-- [excluded item]
+- The header, footer, and the `Main` layout wrapper itself (nav links, logo, sticky
+  positioning, footer contact info) — specified in `header-footer.feature.md`.
+- The full-page looped background video — it renders behind every public page via the shared
+  `Main` layout, not just Home, so it is specified in `header-footer.feature.md` (§ Global
+  Background Video) rather than here. This feature only needs to render correctly on top of
+  that background (readable text, no low-contrast sections) — see the Feature-Specific
+  Constraints below.
+- Portfolio content (education, work history, projects) — `portfolio-page.feature.md`.
+- Links and Contact page content — `link-page.feature.md`, `contact-page.feature.md`.
+- Any routing/navigation mechanics beyond "this content renders when `activePage === 'home'`" —
+  owned by `Main`/`Navbar`, see `header-footer.feature.md`.
 
 ### Feature-Specific Constraints
 
-<!--
-Only constraints that apply to this feature and are NOT already in `ai-spec.md`,
-including any explicit exception to a global rule. Write `N/A` if there are none
-- that is the normal case.
-Example: "This feature must work without JavaScript enabled."
--->
-
-- [constraint, or N/A]
+- **Legibility over the background video:** because `Main` renders a looping video behind all
+  page content (see `header-footer.feature.md`), every section on this page must remain
+  readable on top of it — text needs sufficient contrast (a semi-opaque section background,
+  text shadow, or similar) rather than assuming a plain solid page background.
+- **Placeholder copy is acceptable during development:** the exact name/role/bio wording and
+  the exact skill list are authored content, not requirements. Lorem-ipsum or draft text may
+  stand in while building the layout, but must be replaced with real content before this
+  feature is considered done (Global Definition of Done, `ai-spec.md` §6, item 1 — the
+  checklist's "attention to detail" criteria expect real, proofread copy in the graded
+  submission).
 
 ---
 
 ## 3. Requirements
 
-### Functional Requirements
-
-<!--
-Break the feature into small, explicit, testable requirements. Each one states a
-single capability, rule or behaviour that the feature must provide.
-
-- Keep one idea per requirement; split it if it contains "and" twice.
-- Number them FR-01, FR-02, ... and never renumber later: the IDs are referenced
-  by the acceptance criteria in section 9.
-- Requirements say WHAT must happen, not HOW to build it.
-- Requirements define the expected behaviour; section 9 defines how that
-  behaviour is verified. Every requirement must be verifiable by at least one
-  acceptance criterion.
-
-Copy the block below for each requirement.
-Example requirement: "The user can submit the form only when all required fields
-are valid."
--->
-
-### FR-01 — [Requirement Title]
+### FR-01 — Root Path & Default Landing
 
 **Requirement:**
-[What the feature must do.]
+The Home page is what renders at the site root (`https://prettyrad-wav.github.io`, i.e.
+`activePage === 'home'` in `Main`) and is the page shown when no other page has been selected.
 
 **Expected Result:**
-[The observable result once this requirement is met.]
+Loading the site fresh (first visit, hard refresh, or clicking the header logo) shows the Home
+page content inside the shared layout, with the URL staying at the root per `ai-spec.md` §4.
 
-### FR-02 — [Requirement Title]
+### FR-02 — Introduction Section
 
 **Requirement:**
-[What the feature must do.]
+The page displays an introduction section containing the student's name, a role/title or short
+tagline, and a brief paragraph introducing who they are.
 
 **Expected Result:**
-[The observable result once this requirement is met.]
+Nick Hobbs's name is prominently displayed (largest/most emphasized text in the section), a
+role or tagline (e.g. "Full-Stack Developer") is visible near the name, and a short paragraph
+of bio copy is readable directly below without scrolling past other sections.
+
+### FR-03 — Technical Skills Section
+
+**Requirement:**
+The page displays a technical skills section listing at least 3 technical skills. Each skill
+has an icon and supporting descriptive text (not a single word/label).
+
+**Expected Result:**
+At least 3 technical skill cards/items are visible, each showing an icon plus a sentence or two
+describing that skill, laid out in a visually organized grid or card list rather than a bare
+text list.
+
+### FR-04 — Soft Skills / Talents Section
+
+**Requirement:**
+The page displays a soft skills or talents section listing at least 3 items. Each item has an
+icon and supporting descriptive text (not a single word/label).
+
+**Expected Result:**
+At least 3 soft-skill cards/items are visible, each showing an icon plus a sentence or two of
+supporting text, laid out in a visually organized grid or card list, visually distinct from the
+technical skills section.
+
+### FR-05 — Section Layout & Visual Separation
+
+**Requirement:**
+The page is organized into at least 3 distinct visual sections (introduction, technical skills,
+soft skills), each visually separated from the next by spacing, a background change, or a
+divider.
+
+**Expected Result:**
+Scrolling the Home page shows a visitor moving through clearly bounded sections — no two
+sections visually blend into one continuous, unbroken block of content.
+
+### FR-06 — AI-Generated Technical Skill Icons
+
+**Requirement:**
+At least 2 images on the Home page are AI-generated. These are vaporwave/synthwave-styled icons
+representing technical skills (e.g. JavaScript, React), used as the icon for their respective
+cards in the Technical Skills section (FR-03), matching the site's retro/synthwave visual theme.
+Each image has relevant, descriptive `alt` text, and the AI tool used to generate them is
+documented (comment near the image import, and/or noted in `CONCEPTS.md`).
+
+**Expected Result:**
+At least 2 of the technical skill icons are recognizably AI-generated artwork (not a stock/plain
+icon-font glyph), thematically relevant to the skill and the site's retro-road aesthetic, each
+with non-empty descriptive `alt` text (e.g. "Vaporwave-style JavaScript logo"), and a comment or
+`CONCEPTS.md` entry names the generation tool (e.g. ChatGPT/DALL·E).
 
 ---
 
 ## 4. User Flow
 
-<!--
-Describe the expected sequence of events from the user's (or the calling
-system's) point of view: where the interaction starts, what action is taken, what
-the system does in response, what the user sees or receives, and where it ends.
-
-Numbered steps, behaviour only - no functions, no code.
-Add an alternate flow below only when the feature has a meaningful second path
-(for example an invalid input or a failed request); otherwise write `N/A`.
--->
-
 **Main flow**
 
-1. [step]
-2. [step]
-3. [step]
+1. A visitor loads `https://prettyrad-wav.github.io` (or clicks the header logo from another
+   page).
+2. The Home page renders inside `Main`: introduction section first, then technical skills, then
+   soft skills, each visually separated.
+3. The visitor reads the name, role, and bio in the introduction section.
+4. The visitor scrolls to see technical skill cards (icon + description) and soft skill cards
+   (icon + description).
+5. The visitor uses the header/footer nav (outside this feature's scope) to move on to another
+   page.
 
 **Alternate / failure flow**
 
-1. [step, or N/A]
+N/A — this feature has no user input, form, or network request; content renders from static,
+in-codebase data every time.
 
 ---
 
 ## 5. Interfaces Involved
 
-<!--
-Lists where this feature touches the application, so nobody has to guess which
-page, component or endpoint is concerned.
-Identify existing interfaces and the new ones this feature introduces; mark which
-is which. Do not restate the repository structure from `ai-spec.md`.
-Write `N/A` for a category the feature does not use.
--->
-
 ### Pages
 
-<!--
-Route or file path, plus what the page does for this feature.
-Example: `/contact` - displays the contact form.
--->
-
-- [route/path] - [role in this feature]
+- `/` (site root, `activePage === 'home'` inside `Main`) — renders this feature's content.
+  Existing file: `src/pages/Home.jsx` (currently a placeholder — see inline comment).
 
 ### Components
 
-<!--
-Component or module name, plus its responsibility inside this feature.
--->
-
-- [name] - [responsibility]
+- `Home` (`src/pages/Home.jsx`) - existing, to be built out. Composes the introduction, technical
+  skills, and soft skills sections for this page.
+- `IntroSection` (new, e.g. `src/components/home/IntroSection.jsx`) - renders name, role/tagline,
+  and bio paragraph.
+- `SkillsSection` (new, e.g. `src/components/home/SkillsSection.jsx`) - renders a titled grid of
+  `SkillCard`s; reused for both the technical and soft skills sections with different data.
+- `SkillCard` (new, e.g. `src/components/home/SkillCard.jsx`) - renders one skill's icon plus
+  supporting text; shared shape for technical and soft skill entries.
 
 ### Endpoints
 
-<!--
-HTTP method, path, and purpose. Request and response content is described in
-section 6, so keep this line short.
--->
-
-- [METHOD] `[/path]` - [purpose]
+N/A — this feature makes no network or Supabase calls; all content is static.
 
 ---
 
 ## 6. Data
 
-<!--
-Document the data this feature receives, returns, stores or modifies. Name the
-fields, and their type or format when it matters (date format, id, number vs
-text). Keep it readable - only include a full schema if this feature actually
-depends on one.
-Do not invent data that the project requirements do not mention.
--->
-
 ### Inputs
 
-<!--
-Data entering the feature: form fields, request body or parameters, uploaded
-files, values read from storage.
-Example: `email` (text, required) - submitted by the contact form.
--->
-
-- [field] ([type/format]) - [source]
+N/A — no user input. Per `ai-spec.md` §5 ("Static content as data"), the bio text and skill
+entries are plain JS data structures co-located with/imported by `Home.jsx` (e.g. a
+`technicalSkills` array and a `softSkills` array of `{ icon, title, description }` objects),
+mapped over to render the cards — not hardcoded, repeated JSX per skill.
 
 ### Outputs / Returned Data
 
-<!--
-Data the feature produces: response payload, values displayed on screen, status
-codes. Describe the shape, not the serialization details.
--->
-
-- [field or response element] ([type/format]) - [where it goes]
+- Rendered introduction markup (name, role, bio paragraph) - displayed at the top of the Home
+  page.
+- Rendered technical skill cards (icon, title/label, description) - displayed in the technical
+  skills section.
+- Rendered soft skill cards (icon, title/label, description) - displayed in the soft skills
+  section.
 
 ### Stored / Modified Data
 
-<!--
-What this feature creates, updates or deletes in persistent storage, and where.
-Write `N/A` if the feature stores nothing.
--->
-
-- [what is stored or changed, or N/A]
+N/A — this feature reads and writes no persistent storage.
 
 ---
 
 ## 7. Validation
 
-<!--
-Validation rules that are specific to this feature: required values, accepted
-formats, ranges and limits, invalid conditions, and any business rule that must
-hold before the operation is accepted.
-
-For each rule, state what is checked, where it is checked (client, server, or
-both), and what happens when the check fails. The rule must be precise enough
-that another developer can tell whether the implementation is correct.
-Do not repeat global validation conventions already defined in `ai-spec.md`.
-
-Example: "Email: required, must contain '@'; if invalid, the form is not
-submitted and a message appears next to the field."
--->
-
-- **[field or condition]:** [rule] - checked on [client/server/both] - on failure: [result]
-- **[field or condition]:** [rule] - checked on [client/server/both] - on failure: [result]
+- **Minimum skill counts:** the technical skills array and the soft skills array must each
+  contain at least 3 entries - checked at code review (client, since it's static data) - on
+  failure: add entries to the relevant data array before the feature is done.
+- **Supporting text per skill:** each skill/talent entry's `description` must be more than a
+  single word (a real phrase or sentence) - checked at code review (client) - on failure:
+  expand the entry's description text.
+- **AI image `alt` text:** each AI-generated icon's `alt` attribute must be a non-empty string
+  describing the image's content/theme, not a filename or empty string - checked visually / via
+  accessibility audit (client) - on failure: update the `alt` attribute.
+- **Section count:** the page must render at least 3 visually distinct sections (intro,
+  technical skills, soft skills) - checked at code review / visual inspection (client) - on
+  failure: add spacing, background, or divider styling until sections read as distinct.
 
 ---
 
 ## 8. Expected Behavior
 
-<!--
-Describes what the system does, as observed from outside. Section 3 states the
-requirements; this section states the resulting behaviour in each situation.
-Cover only the cases that are real for this feature - do not invent artificial
-edge cases for a simple feature. Write `N/A` where a subsection does not apply.
--->
-
 ### Success Behavior
 
-<!--
-What happens when everything works: what the user sees, what is returned, what
-changes in the application state.
--->
-
-- [behaviour]
+- The Home page is what a visitor sees at the site root, with the introduction section visible
+  first.
+- All three sections (introduction, technical skills, soft skills) render with their required
+  content and remain legible over the shared background video.
+- At least 2 AI-generated vaporwave-style icons are visible among the technical skill cards.
 
 ### Error / Invalid Behavior
 
-<!--
-What happens when input is invalid, required data does not exist, or a request
-fails: what the user is told, and what the system does or does not change.
--->
-
-- [behaviour]
+N/A — there is no user input or network call in this feature that can fail; content always
+renders from static, in-codebase data.
 
 ### Empty / Edge Cases
 
-<!--
-Feature-specific situations that are neither success nor error: no results to
-display, first use with no data yet, a limit being reached.
--->
-
-- [behaviour, or N/A]
+- **Narrow viewports:** skill card grids collapse to a single column and text wraps rather than
+  overflowing or forcing horizontal scroll (per the global responsive rules in
+  `ai-spec.md`/`header-footer.feature.md`).
+- **Long bio or descriptions:** section height grows to fit the content rather than clipping or
+  overlapping the next section.
 
 ---
 
 ## 9. Acceptance Criteria
 
-<!--
-Acceptance criteria answer one question: how can someone objectively verify that
-this feature works?
-
-- Each criterion must be observable and testable, manually or automatically.
-- Write results to verify, not implementation steps.
-- Ban subjective wording such as "works properly" or "looks good".
-- Reference the requirement each criterion verifies, for example (FR-01).
-- Do not introduce new requirements here: everything verified must already be
-  described in sections 3 to 8.
-- The Global Definition of Done in `ai-spec.md` also applies and is not repeated
-  here.
-
-Example: "Submitting the form with an empty email displays an error message and
-sends no request. (FR-02)"
--->
-
-- [ ] [verifiable condition] ([FR-01])
-- [ ] [verifiable condition] ([FR-02])
+- [ ] Loading `https://prettyrad-wav.github.io` (or clicking the header logo) shows the Home
+      page as the active page, with the URL unchanged. (FR-01)
+- [ ] The introduction section shows Nick Hobbs's name, a visible role/tagline, and a short bio
+      paragraph. (FR-02)
+- [ ] At least 3 technical skill entries are displayed, each with an icon and a multi-word
+      description, in a card/grid layout. (FR-03)
+- [ ] At least 3 soft skill/talent entries are displayed, each with an icon and a multi-word
+      description, in a card/grid layout. (FR-04)
+- [ ] The page shows at least 3 visually separated sections (introduction, technical skills,
+      soft skills). (FR-05)
+- [ ] At least 2 technical skill icons are AI-generated, vaporwave/synthwave-styled images with
+      descriptive `alt` text, and the generation tool is documented in a code comment or
+      `CONCEPTS.md`. (FR-06)
+- [ ] All Home page text remains readable over the shared background video at both desktop and
+      mobile widths. (Feature-Specific Constraint, § 2)

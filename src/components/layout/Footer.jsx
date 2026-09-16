@@ -3,7 +3,7 @@ import './Footer.css'
 
 // Contact/social data as a plain structure (ai-spec.md §5 "Static content as data").
 // TODO: swap CONTACT_EMAIL for Nick's real public contact address before launch.
-const CONTACT_EMAIL = 'hello@prettyrad-wav.dev'
+const CONTACT_EMAIL = 'hobbsn97@gmail.com'
 
 const socialLinks = [
   {
@@ -21,7 +21,7 @@ function Footer() {
   return (
     <footer className="site-footer">
       <Container>
-        <Stack gap={3} className="align-items-center text-center">
+        <Stack gap={1} className="align-items-center text-center">
           <a className="contact-email" href={`mailto:${CONTACT_EMAIL}`}>
             {CONTACT_EMAIL}
           </a>

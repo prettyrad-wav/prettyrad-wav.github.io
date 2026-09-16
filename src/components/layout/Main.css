@@ -4,6 +4,28 @@
   min-height: 100svh;
 }
 
+/* FR-06 (header-footer.feature.md): fills the viewport behind every page's
+   content. `position: fixed` keeps it pinned while the page scrolls;
+   negative z-index sits it behind Navbar/page-content/Footer but still above
+   the root's plain --bg color, which is the fallback if the video is hidden
+   or fails to load. `pointer-events: none` keeps it from ever intercepting
+   clicks meant for the content above it. */
+.background-video {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .background-video {
+    display: none;
+  }
+}
+
 .page-content {
   flex: 1 0 auto;
 }
