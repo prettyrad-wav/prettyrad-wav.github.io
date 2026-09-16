@@ -1,0 +1,8 @@
+/* Legibility over the background video comes from Main's shared
+   .video-overlay — no per-section background/blur here. A top divider plus
+   the alternate title color (pink vs. Education's cyan) gives FR-05's
+   required visual separation between sections. */
+
+.work-section-title {
+  color: var(--neon-pink);
+}

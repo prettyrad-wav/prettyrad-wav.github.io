@@ -1,0 +1,8 @@
+/* Legibility over the background video comes from Main's shared
+   .video-overlay (see home-page.feature.md's SkillsSection.css note) — no
+   per-section background/blur here. This is the first section on the page,
+   directly under the page header, so it needs no top divider (FR-05's
+   separation from the header comes from the header's own spacing). */
+.education-section-title {
+  color: var(--neon-pink);
+}

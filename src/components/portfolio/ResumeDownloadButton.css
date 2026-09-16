@@ -1,0 +1,25 @@
+/* Solid accent button — distinct from the outline/underline links used
+   elsewhere on the page (ProjectCard.css) since this is the page's primary
+   call to action (FR-04). */
+.resume-download-button {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 12px 28px;
+  background: var(--accent);
+  color: var(--glass-text);
+  font-family: var(--sans);
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-decoration: none;
+  border-radius: 8px;
+  box-shadow: var(--glass-shadow);
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+
+.resume-download-button:hover,
+.resume-download-button:focus-visible {
+  background: var(--neon-pink);
+  color: var(--glass-text);
+  transform: translateY(-2px);
+}

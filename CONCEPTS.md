@@ -25,6 +25,13 @@
   technical skill icons used on the Home page's Technical Skills cards
   (`home-page.feature.md` FR-06; also noted in a comment above `technicalSkills` in
   `src/components/home/skillsData.js`).
+- **Images:** `src/assets/cdbxx-retro.png`, `src/assets/tri-county-retro.png`,
+  `src/assets/shaker-ai.png`, `src/assets/ac-ai.png`, `src/assets/codebloggs/cd-ai.png`,
+  `src/assets/rdelivery/rdelivery-ai.png` — retro-style education logos, work-experience
+  icons, and project imagery used on the Portfolio page's Education, Work Experience, and
+  Projects sections (`portfolio-page.feature.md` FR-06; also noted in a comment above each
+  data array in `src/components/portfolio/educationData.js`, `workData.js`, and
+  `projectsData.js`).
 
 ---
 
