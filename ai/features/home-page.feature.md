@@ -54,12 +54,14 @@ first impression within seconds of the page loading, without needing to visit an
   page content (see `header-footer.feature.md`), every section on this page must remain
   readable on top of it — text needs sufficient contrast (a semi-opaque section background,
   text shadow, or similar) rather than assuming a plain solid page background.
-- **Placeholder copy is acceptable during development:** the exact name/role/bio wording and
-  the exact skill list are authored content, not requirements. Lorem-ipsum or draft text may
-  stand in while building the layout, but must be replaced with real content before this
-  feature is considered done (Global Definition of Done, `ai-spec.md` §6, item 1 — the
-  checklist's "attention to detail" criteria expect real, proofread copy in the graded
-  submission).
+- **Real content, sourced from `resume.md` and `docs/`:** the name/role/bio wording and the
+  skill list are authored content drawn from `m16-binder/resume.md` (work history, projects,
+  skills) and the elevator-pitch scripts in `docs/script-1.md` / `docs/script-2.md` (refined
+  per `docs/pitch-feedback.md`). Lorem-ipsum or other placeholder text is **not** acceptable —
+  the copy specified in FR-02, FR-03, and FR-04 below is the authored content for this feature
+  (Global Definition of Done, `ai-spec.md` §6, item 1 — the checklist's "attention to detail"
+  criteria expect real, proofread copy in the graded submission). Minor wording polish is fine
+  as long as the underlying facts (roles, projects, skills) stay accurate to the resume.
 
 ---
 
@@ -79,34 +81,69 @@ page content inside the shared layout, with the URL staying at the root per `ai-
 
 **Requirement:**
 The page displays an introduction section containing the student's name, a role/title or short
-tagline, and a brief paragraph introducing who they are.
+tagline, and a brief paragraph introducing who they are, adapted from the elevator-pitch scripts
+in `docs/script-1.md` / `docs/script-2.md` (per the revisions suggested in
+`docs/pitch-feedback.md`: lead with the HVAC-to-dev story, name a concrete project, and close on
+what he brings to a team rather than only "continuing to learn").
 
 **Expected Result:**
-Nick Hobbs's name is prominently displayed (largest/most emphasized text in the section), a
-role or tagline (e.g. "Full-Stack Developer") is visible near the name, and a short paragraph
-of bio copy is readable directly below without scrolling past other sections.
+"Nick Hobbs" is prominently displayed (largest/most emphasized text in the section), a role or
+tagline — "Full-Stack Developer" (or "AI-Native Full-Stack Developer") — is visible near the
+name, and a short bio paragraph is readable directly below without scrolling past other
+sections. Bio copy (may be lightly edited for length/flow, but must keep these facts):
+
+> Hi, I'm Nick Hobbs — an entry-level full-stack developer completing an AI-native software
+> development program through CodeBoxx Academy. Before writing code, I spent several years as
+> an HVAC technician, diagnosing complex systems under pressure — a mindset I now bring to
+> breaking down and solving problems in software. I've built full-stack applications like
+> CodeBloggs, a MERN-stack social blogging platform, using JavaScript, React, and Node.js. I'm
+> ready to bring that combination of hands-on problem-solving and technical skill to a
+> development team from day one.
 
 ### FR-03 — Technical Skills Section
 
 **Requirement:**
-The page displays a technical skills section listing at least 3 technical skills. Each skill
-has an icon and supporting descriptive text (not a single word/label).
+The page displays a technical skills section listing at least 3 technical skills, drawn from the
+"SKILLS" and "PROJECTS" sections of `m16-binder/resume.md`. Each skill has an icon and
+supporting descriptive text (not a single word/label).
 
 **Expected Result:**
 At least 3 technical skill cards/items are visible, each showing an icon plus a sentence or two
 describing that skill, laid out in a visually organized grid or card list rather than a bare
-text list.
+text list. Skill copy:
+
+- **JavaScript** — "Comfortable building interactive UI logic and application behavior with
+  modern JavaScript (ES6+)."
+- **React & JSX** — "Builds component-based front ends with React and JSX, including hooks and
+  state management."
+- **MERN Stack** — "Built and deployed full-stack applications like CodeBloggs, a social
+  blogging platform, using MongoDB, Express, React, and Node.js end-to-end."
+- **Java & Spring Boot** — "Developed a Spring Boot backend with a MySQL database for Rocket
+  Delivery, a food-ordering app with a React Native front end."
 
 ### FR-04 — Soft Skills / Talents Section
 
 **Requirement:**
-The page displays a soft skills or talents section listing at least 3 items. Each item has an
-icon and supporting descriptive text (not a single word/label).
+The page displays a soft skills or talents section listing at least 3 items, drawn from the
+"EXPERIENCE" section of `m16-binder/resume.md` (HVAC technician, food service/bartending) and
+the transferable-skills framing used in `docs/script-1.md` / `docs/script-2.md`. Each item has
+an icon and supporting descriptive text (not a single word/label).
 
 **Expected Result:**
 At least 3 soft-skill cards/items are visible, each showing an icon plus a sentence or two of
 supporting text, laid out in a visually organized grid or card list, visually distinct from the
-technical skills section.
+technical skills section. Skill copy:
+
+- **Diagnostic Problem-Solving** — "Years of diagnosing complex HVAC systems trained me to break
+  problems into pieces, test hypotheses, and find root causes quickly — the same approach I
+  bring to debugging code."
+- **Communication Under Pressure** — "From explaining repairs to customers to keeping a busy bar
+  running smoothly, I've learned to communicate clearly and stay calm when things get hectic."
+- **Adaptability & Fast-Paced Environments** — "Comfortable switching between competing
+  priorities, whether troubleshooting equipment on a deadline or juggling orders during a rush."
+- **Customer & Team Focus** — "Years in customer-facing roles — HVAC service and
+  bartending — built strong instincts for listening to what people need and delivering it
+  reliably."
 
 ### FR-05 — Section Layout & Visual Separation
 
@@ -123,16 +160,24 @@ sections visually blend into one continuous, unbroken block of content.
 
 **Requirement:**
 At least 2 images on the Home page are AI-generated. These are vaporwave/synthwave-styled icons
-representing technical skills (e.g. JavaScript, React), used as the icon for their respective
-cards in the Technical Skills section (FR-03), matching the site's retro/synthwave visual theme.
-Each image has relevant, descriptive `alt` text, and the AI tool used to generate them is
-documented (comment near the image import, and/or noted in `CONCEPTS.md`).
+representing technical skills, used as the icon for their respective cards in the Technical
+Skills section (FR-03), matching the site's retro/synthwave visual theme. Each image has
+relevant, descriptive `alt` text, and the AI tool used to generate them is documented (comment
+near the image import, and/or noted in `CONCEPTS.md`).
+
+All 4 technical skill icons are AI-generated (generated with ChatGPT), exceeding the 2-image
+minimum:
+
+- `src/assets/js-icon.png` — JavaScript skill card icon.
+- `src/assets/react-jsx-icon.png` — React & JSX skill card icon.
+- `src/assets/mern-icon.png` — MERN Stack skill card icon.
+- `src/assets/java-spring-icon.png` — Java & Spring Boot skill card icon.
 
 **Expected Result:**
-At least 2 of the technical skill icons are recognizably AI-generated artwork (not a stock/plain
-icon-font glyph), thematically relevant to the skill and the site's retro-road aesthetic, each
+All 4 technical skill icons above are recognizably AI-generated artwork (not a stock/plain
+icon-font glyph), thematically relevant to their skill and the site's retro-road aesthetic, each
 with non-empty descriptive `alt` text (e.g. "Vaporwave-style JavaScript logo"), and a comment or
-`CONCEPTS.md` entry names the generation tool (e.g. ChatGPT/DALL·E).
+`CONCEPTS.md` entry names ChatGPT as the generation tool.
 
 ---
 
@@ -188,7 +233,10 @@ N/A — this feature makes no network or Supabase calls; all content is static.
 N/A — no user input. Per `ai-spec.md` §5 ("Static content as data"), the bio text and skill
 entries are plain JS data structures co-located with/imported by `Home.jsx` (e.g. a
 `technicalSkills` array and a `softSkills` array of `{ icon, title, description }` objects),
-mapped over to render the cards — not hardcoded, repeated JSX per skill.
+mapped over to render the cards — not hardcoded, repeated JSX per skill. The content of these
+data structures is the copy specified in FR-02, FR-03, and FR-04, sourced from
+`m16-binder/resume.md` and `docs/script-1.md` / `docs/script-2.md` — not lorem ipsum or other
+placeholder text.
 
 ### Outputs / Returned Data
 
@@ -230,7 +278,8 @@ N/A — this feature reads and writes no persistent storage.
   first.
 - All three sections (introduction, technical skills, soft skills) render with their required
   content and remain legible over the shared background video.
-- At least 2 AI-generated vaporwave-style icons are visible among the technical skill cards.
+- All 4 AI-generated (ChatGPT) vaporwave-style icons (`js-icon.png`, `react-jsx-icon.png`,
+  `mern-icon.png`, `java-spring-icon.png`) are visible among the technical skill cards.
 
 ### Error / Invalid Behavior
 
@@ -259,7 +308,8 @@ renders from static, in-codebase data.
       description, in a card/grid layout. (FR-04)
 - [ ] The page shows at least 3 visually separated sections (introduction, technical skills,
       soft skills). (FR-05)
-- [ ] At least 2 technical skill icons are AI-generated, vaporwave/synthwave-styled images with
+- [ ] All 4 technical skill icons (`js-icon.png`, `react-jsx-icon.png`, `mern-icon.png`,
+      `java-spring-icon.png`) are AI-generated (ChatGPT), vaporwave/synthwave-styled images with
       descriptive `alt` text, and the generation tool is documented in a code comment or
       `CONCEPTS.md`. (FR-06)
 - [ ] All Home page text remains readable over the shared background video at both desktop and

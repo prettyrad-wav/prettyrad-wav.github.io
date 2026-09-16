@@ -12,7 +12,7 @@ import './Navbar.css'
 function Navbar({ activePage, onNavigate }) {
   return (
     <>
-      <BsNavbar sticky="top" bg="body" className="site-header">
+      <BsNavbar sticky="top" className="site-header">
         <Container fluid className="px-3 px-md-4">
           <BsNavbar.Brand
             as="button"

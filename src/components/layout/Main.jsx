@@ -66,6 +66,12 @@ function Main() {
           onError={() => setVideoFailed(true)}
         />
       )}
+      {/* One continuous blur+tint over the whole video instead of every
+          section blurring its own patch — separate per-section
+          backdrop-filters produced visible seams where adjacent blurred
+          rects met. Sits between the video (z-index -2) and all page
+          content (z-index auto), so it never covers anything else. */}
+      <div className="video-overlay" aria-hidden="true" />
       <Navbar activePage={activePage} onNavigate={setActivePage} />
       <main className="page-content">
         <ActivePage />
