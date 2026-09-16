@@ -1,4 +1,4 @@
-# Feature Specification — [Feature Name]
+# Feature Specification — Header, Footer & Shared Layout
 
 **This document specifies one single feature. Read `ai-spec.md` first.**
 
@@ -7,298 +7,252 @@
 - If this feature needs an exception to a global rule, or an extra constraint, state it explicitly in section 2.
 - Implementation must satisfy **both** `ai-spec.md` and this document.
 
-<!--
-HOW TO COMPLETE THIS TEMPLATE
-
-- Copy this file once per feature and rename it, for example `login.feature.md`.
-- Replace every `[...]` placeholder with content taken from the project
-  requirements and your own analysis.
-- Instructions live in HTML comments like this one and stay invisible when the
-  Markdown is rendered. Delete each comment once its section is complete.
-- Write `N/A` for a subsection that genuinely does not apply to this feature
-  (a back-end-only feature has no page, for example). Do not invent content to
-  fill a heading.
-- Golden rule: if a rule is true for the whole project, it belongs in
-  `ai-spec.md`, not here.
--->
-
-- **Feature Name:** [name]
-- **Related Area:** [e.g. front-end, back-end, full-stack, database]
+- **Feature Name:** Header, Footer & Shared Layout
+- **Related Area:** Front-end (layout/navigation)
 
 ---
 
 ## 1. Feature Goal
 
-<!--
-Describe the outcome this feature must provide: what capability is added, who or
-what uses it, and what result they get. Two or three sentences are enough.
-Describe what the feature achieves, not how it will be coded - no file names,
-no libraries, no implementation steps.
--->
-
-[feature goal]
+Give every public page of the site the same surrounding frame — a persistent header with
+branding and navigation, and a persistent footer with contact/social information and a
+copyright notice — so a visitor always knows where they are and can reach any main page from
+anywhere on the site, on any screen size. This feature produces no content of its own beyond
+the header and footer; it is the shell every page (Home, Portfolio, Links, Contact) is rendered
+inside of.
 
 ---
 
 ## 2. Feature Scope
 
-<!--
-Scope draws the boundary of this feature. It answers "what is this feature
-responsible for, and what is deliberately left out?"
-Stay at feature level: do not restate the project scope from `ai-spec.md`.
--->
-
 ### In Scope
 
-<!--
-What this feature must deliver. One line per item.
--->
-
-- [item]
-- [item]
+- A `Main` layout component that wraps routed page content between a header and a footer.
+- A `Navbar`/`Header` component rendered at the top of every public page, sticky/fixed while
+  scrolling, containing the personal logo and navigation links to all main pages.
+- A `Footer` component rendered at the bottom of every public page, containing contact
+  information, social links, and a copyright notice.
+- The AI-generated personal logo image, used in the header, linking to the Home page.
+- Responsive behavior of the header and footer: horizontal nav on desktop (>768px), bottom icon
+  nav on mobile (≤768px), with no overflow or unreadable text at either width.
 
 ### Out of Scope
 
-<!--
-Related behaviour that could look like part of this feature but is intentionally
-excluded. Name where it lives instead when you know (another feature, a later
-step, or nowhere yet).
--->
-
-- [excluded item]
-- [excluded item]
+- The content rendered inside the layout (Home, Portfolio, Links, Contact page content) —
+  specified in their own `*.feature.md` files.
+- The Login and Back Office pages' use (or deliberate non-use) of this layout — specified in
+  `login-page.feature.md` and `back-office.feature.md` per the Cross-Feature Rules in
+  `ai-spec.md` §7.
+- Light/dark theme switching and language switching — `light-dark-mode.feature.md` and
+  `languages.feature.md` (extra miles); this feature's header/footer must simply not break if
+  those are added later.
+- Generating the AI images themselves (tool selection, prompting) beyond documenting which tool
+  produced the logo.
 
 ### Feature-Specific Constraints
 
-<!--
-Only constraints that apply to this feature and are NOT already in `ai-spec.md`,
-including any explicit exception to a global rule. Write `N/A` if there are none
-- that is the normal case.
-Example: "This feature must work without JavaScript enabled."
--->
-
-- [constraint, or N/A]
+- N/A — no exceptions to `ai-spec.md`. The nav membership rule (exactly Home, Portfolio, Links,
+  Contact — never Login or Back Office) and the `768px` breakpoint are inherited from
+  `ai-spec.md` §5 and §7 and apply as-is.
 
 ---
 
 ## 3. Requirements
 
-### Functional Requirements
-
-<!--
-Break the feature into small, explicit, testable requirements. Each one states a
-single capability, rule or behaviour that the feature must provide.
-
-- Keep one idea per requirement; split it if it contains "and" twice.
-- Number them FR-01, FR-02, ... and never renumber later: the IDs are referenced
-  by the acceptance criteria in section 9.
-- Requirements say WHAT must happen, not HOW to build it.
-- Requirements define the expected behaviour; section 9 defines how that
-  behaviour is verified. Every requirement must be verifiable by at least one
-  acceptance criterion.
-
-Copy the block below for each requirement.
-Example requirement: "The user can submit the form only when all required fields
-are valid."
--->
-
-### FR-01 — [Requirement Title]
+### FR-01 — Main Layout Wrapper
 
 **Requirement:**
-[What the feature must do.]
+A `Main` layout component renders the `Navbar`/`Header` above, the current routed page content
+in the middle, and the `Footer` below, for every public page.
 
 **Expected Result:**
-[The observable result once this requirement is met.]
+Navigating between Home, Portfolio, Links, and Contact always shows the same header and footer
+around different page content; neither disappears or re-mounts with a visible flash when
+switching pages.
 
-### FR-02 — [Requirement Title]
+### FR-02 — Persistent, Sticky Header
 
 **Requirement:**
-[What the feature must do.]
+The header renders at the top of the viewport on every public page, uses `position: sticky` (or
+`fixed`) so it stays visible while the page content scrolls, and has the same background and
+styling on every page.
 
 **Expected Result:**
-[The observable result once this requirement is met.]
+Scrolling down any public page keeps the header visible at the top; the header's appearance
+(colors, spacing, logo, nav style) is identical whether the visitor is on Home, Portfolio, Links,
+or Contact.
+
+### FR-03 — Header Navigation Links
+
+**Requirement:**
+The header contains navigation links to exactly the main public pages (Home, Portfolio, Links,
+Contact).
+
+**Expected Result:**
+Clicking any header nav link renders that page's content inside the same layout, with the URL
+remaining `https://prettyrad-wav.github.io` per the routing rule in `ai-spec.md` §4. Login and
+Back Office never appear as header links.
+
+### FR-04 — Personal AI-Generated Logo
+
+**Requirement:**
+An AI-generated logo image (`src/assets/AI-logo-2.svg`, generated using Recraft) is displayed in
+the header, is a clickable link to the Home page, and has descriptive `alt` text.
+
+**Expected Result:**
+The logo is visible in the header on every public page; clicking it navigates to Home from any
+page (including from Home itself, where it is a no-op); a screen reader announces meaningful
+alt text (e.g. "Nick Hobbs logo") rather than a filename or empty string.
+
+### FR-05 — Footer Content
+
+**Requirement:**
+The footer renders on every public page and contains contact information (at least an email
+address) plus social links, and a copyright notice.
+
+**Expected Result:**
+Scrolling to the bottom of any public page shows the same footer with a working `mailto:` email
+link, at least one social link, and a copyright line (e.g. "© 2026 Nick Hobbs").
+
+### FR-06 — Responsive Navigation Layout
+
+**Requirement:**
+Header/footer navigation adapts at the `768px` breakpoint: horizontal links in the header on
+desktop (>768px), and icon-based links in a bottom bar on mobile (≤768px).
+
+**Expected Result:**
+Resizing the viewport across `768px` switches the nav presentation without any content
+overflowing horizontally, without unreadable/truncated text, and without the logo overflowing
+its container.
 
 ---
 
 ## 4. User Flow
 
-<!--
-Describe the expected sequence of events from the user's (or the calling
-system's) point of view: where the interaction starts, what action is taken, what
-the system does in response, what the user sees or receives, and where it ends.
-
-Numbered steps, behaviour only - no functions, no code.
-Add an alternate flow below only when the feature has a meaningful second path
-(for example an invalid input or a failed request); otherwise write `N/A`.
--->
-
 **Main flow**
 
-1. [step]
-2. [step]
-3. [step]
+1. A visitor loads any public page of the site.
+2. The header renders at the top with the logo and nav links (or icons, on mobile); the footer
+   renders at the bottom with contact/social info and the copyright line.
+3. The visitor scrolls the page; the header stays pinned to the top of the viewport.
+4. The visitor clicks a nav link (or icon) in the header (desktop) or bottom bar (mobile).
+5. The requested page's content replaces the middle of the layout; header and footer remain
+   unchanged; the URL stays at the site root.
+6. The visitor clicks the logo from any page and lands on Home.
 
 **Alternate / failure flow**
 
-1. [step, or N/A]
+N/A — this feature has no data-dependent or failure path; the header and footer are static
+layout elements with no external requests.
 
 ---
 
 ## 5. Interfaces Involved
 
-<!--
-Lists where this feature touches the application, so nobody has to guess which
-page, component or endpoint is concerned.
-Identify existing interfaces and the new ones this feature introduces; mark which
-is which. Do not restate the repository structure from `ai-spec.md`.
-Write `N/A` for a category the feature does not use.
--->
-
 ### Pages
 
-<!--
-Route or file path, plus what the page does for this feature.
-Example: `/contact` - displays the contact form.
--->
-
-- [route/path] - [role in this feature]
+- All public routes rendered under the `Main` layout (Home `/`, Portfolio, Links, Contact — no
+  distinct URL paths per `ai-spec.md` §4) - every one is wrapped by this feature's header and
+  footer.
 
 ### Components
 
-<!--
-Component or module name, plus its responsibility inside this feature.
--->
-
-- [name] - [responsibility]
+- `Main` (`src/components/layout/Main.jsx`) - new. Wraps routed page content between `Navbar`
+  and `Footer`.
+- `Navbar` / `Header` (`src/components/layout/Navbar.jsx`) - new. Renders the logo, desktop
+  horizontal nav, and mobile bottom icon nav; owns the sticky/fixed positioning.
+- `Footer` (`src/components/layout/Footer.jsx`) - new. Renders contact info, social links, and
+  the copyright notice.
+- `App` (`src/App.jsx`) - existing. Mounts the router and the `Main` layout around routed pages.
 
 ### Endpoints
 
-<!--
-HTTP method, path, and purpose. Request and response content is described in
-section 6, so keep this line short.
--->
-
-- [METHOD] `[/path]` - [purpose]
+N/A — this feature makes no network or Supabase calls.
 
 ---
 
 ## 6. Data
 
-<!--
-Document the data this feature receives, returns, stores or modifies. Name the
-fields, and their type or format when it matters (date format, id, number vs
-text). Keep it readable - only include a full schema if this feature actually
-depends on one.
-Do not invent data that the project requirements do not mention.
--->
-
 ### Inputs
 
-<!--
-Data entering the feature: form fields, request body or parameters, uploaded
-files, values read from storage.
-Example: `email` (text, required) - submitted by the contact form.
--->
-
-- [field] ([type/format]) - [source]
+- N/A — no user input. Nav link labels/targets, logo image, footer contact/social entries, and
+  the copyright year/name are static data defined in the codebase (per `ai-spec.md` §5, "Static
+  content as data"), not entered by a user.
 
 ### Outputs / Returned Data
 
-<!--
-Data the feature produces: response payload, values displayed on screen, status
-codes. Describe the shape, not the serialization details.
--->
-
-- [field or response element] ([type/format]) - [where it goes]
+- Rendered header markup (logo image + link, nav links or icons) - displayed on every public
+  page.
+- Rendered footer markup (contact email, social links, copyright text) - displayed on every
+  public page.
 
 ### Stored / Modified Data
 
-<!--
-What this feature creates, updates or deletes in persistent storage, and where.
-Write `N/A` if the feature stores nothing.
--->
-
-- [what is stored or changed, or N/A]
+N/A — this feature reads and writes no persistent storage.
 
 ---
 
 ## 7. Validation
 
-<!--
-Validation rules that are specific to this feature: required values, accepted
-formats, ranges and limits, invalid conditions, and any business rule that must
-hold before the operation is accepted.
-
-For each rule, state what is checked, where it is checked (client, server, or
-both), and what happens when the check fails. The rule must be precise enough
-that another developer can tell whether the implementation is correct.
-Do not repeat global validation conventions already defined in `ai-spec.md`.
-
-Example: "Email: required, must contain '@'; if invalid, the form is not
-submitted and a message appears next to the field."
--->
-
-- **[field or condition]:** [rule] - checked on [client/server/both] - on failure: [result]
-- **[field or condition]:** [rule] - checked on [client/server/both] - on failure: [result]
+- **Logo `alt` text:** must be a non-empty, descriptive string (not the filename, not empty) -
+  checked visually/via accessibility audit (client) - on failure: update the `alt` attribute
+  before the feature is considered done.
+- **Nav link set:** the header nav and mobile bottom nav must list exactly Home, Portfolio,
+  Links, Contact, in the same order, on every page - checked by code review across all pages
+  (client) - on failure: correct the shared nav data so all pages stay in sync.
+- **Viewport width:** at any width from mobile (~320px) up through desktop, no element in the
+  header or footer causes horizontal scrolling - checked by manual resize/DevTools responsive
+  mode (client) - on failure: adjust CSS (max-width, flex-wrap, font sizing) until no overflow
+  occurs.
 
 ---
 
 ## 8. Expected Behavior
 
-<!--
-Describes what the system does, as observed from outside. Section 3 states the
-requirements; this section states the resulting behaviour in each situation.
-Cover only the cases that are real for this feature - do not invent artificial
-edge cases for a simple feature. Write `N/A` where a subsection does not apply.
--->
-
 ### Success Behavior
 
-<!--
-What happens when everything works: what the user sees, what is returned, what
-changes in the application state.
--->
-
-- [behaviour]
+- Every public page shows an identical header (logo + nav) and footer (contact/social +
+  copyright), regardless of which page is active.
+- The header remains visible at the top of the viewport while scrolling any page's content.
+- Clicking the logo or any nav link/icon navigates to the corresponding page without changing
+  the URL path or causing a full page reload.
+- At widths >768px, nav links display horizontally in the header; at widths ≤768px, nav items
+  display as icons in a bar fixed to the bottom of the viewport.
 
 ### Error / Invalid Behavior
 
-<!--
-What happens when input is invalid, required data does not exist, or a request
-fails: what the user is told, and what the system does or does not change.
--->
-
-- [behaviour]
+N/A — there is no user input or network call in this feature that can fail; the header and
+footer always render from static, in-codebase data.
 
 ### Empty / Edge Cases
 
-<!--
-Feature-specific situations that are neither success nor error: no results to
-display, first use with no data yet, a limit being reached.
--->
-
-- [behaviour, or N/A]
+- **Very narrow viewports (<360px):** the logo shrinks and nav icons/text wrap or shrink rather
+  than overflowing or forcing horizontal scroll.
+- **Long page content / short page content:** the footer stays at the bottom of the page content
+  (not pinned to the viewport bottom) regardless of how much content the active page renders
+  above it.
 
 ---
 
 ## 9. Acceptance Criteria
 
-<!--
-Acceptance criteria answer one question: how can someone objectively verify that
-this feature works?
-
-- Each criterion must be observable and testable, manually or automatically.
-- Write results to verify, not implementation steps.
-- Ban subjective wording such as "works properly" or "looks good".
-- Reference the requirement each criterion verifies, for example (FR-01).
-- Do not introduce new requirements here: everything verified must already be
-  described in sections 3 to 8.
-- The Global Definition of Done in `ai-spec.md` also applies and is not repeated
-  here.
-
-Example: "Submitting the form with an empty email displays an error message and
-sends no request. (FR-02)"
--->
-
-- [ ] [verifiable condition] ([FR-01])
-- [ ] [verifiable condition] ([FR-02])
+- [ ] Every public page (Home, Portfolio, Links, Contact) renders the same `Navbar`/`Header` and
+      `Footer` around its own content via the `Main` layout. (FR-01)
+- [ ] The header stays visible at the top of the viewport when the page content is scrolled, on
+      every public page. (FR-02)
+- [ ] The header's background and styling are visually identical across all four public pages.
+      (FR-02)
+- [ ] The header contains clickable links to Home, Portfolio, Links, and Contact, and no link to
+      Login or Back Office, on every public page. (FR-03)
+- [ ] Clicking a header nav link renders the target page's content while the URL stays at
+      `https://prettyrad-wav.github.io`. (FR-03)
+- [ ] The logo image from `src/assets/AI-logo-2.svg` is visible in the header on every public
+      page and has non-empty, descriptive `alt` text. (FR-04)
+- [ ] Clicking the logo from any public page navigates to the Home page. (FR-04)
+- [ ] The footer appears on every public page and contains an email contact link, at least one
+      social link, and a copyright notice. (FR-05)
+- [ ] At viewport width >768px, header navigation links are displayed horizontally. (FR-06)
+- [ ] At viewport width ≤768px, navigation is displayed as icons in a bar at the bottom of the
+      viewport. (FR-06)
+- [ ] At both desktop and mobile widths, no header or footer element causes horizontal page
+      overflow, and the logo remains fully visible without distortion. (FR-06)

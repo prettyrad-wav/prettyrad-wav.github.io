@@ -106,7 +106,9 @@ separate app subdirectory to account for.
 
 **Stack (fixed — do not introduce alternatives):**
 - React 19 + Vite (JavaScript variant, as scaffolded — not TypeScript)
-- Plain CSS (custom properties, no CSS framework unless the user explicitly asks to add one)
+- React-Bootstrap + Bootstrap CSS for layout/UI components (`Container`, `Nav`, `Navbar`,
+  `Stack`, etc.), plus plain CSS with custom properties for anything Bootstrap doesn't cover
+  (the mobile bottom icon nav's exact 768px show/hide behavior, brand colors, spacing tokens)
 - Supabase JS client (`@supabase/supabase-js`) for Postgres access and Auth
 - React Router (client-side routing) for page navigation
 - GitHub Actions for CI/CD, GitHub Pages for hosting
@@ -147,9 +149,13 @@ separate app subdirectory to account for.
   in `src/components/layout/`.
 - **Supabase access** goes through the single shared client at
   `src/lib/supabaseClient.js` — no ad-hoc `createClient()` calls elsewhere.
-- **Styling:** plain CSS with custom properties for shared values (colors, spacing). Mobile
-  breakpoint is `768px` (`>768px` = desktop nav layout, `≤768px` = mobile/icon nav) per the
-  responsive requirement — keep this breakpoint consistent across all components.
+- **Styling:** React-Bootstrap components first; drop to plain CSS (custom properties for
+  shared values like colors/spacing) only where Bootstrap has no equivalent or its default
+  breakpoints don't match ours. Mobile breakpoint is `768px` (`>768px` = desktop nav layout,
+  `≤768px` = mobile/icon nav) per the responsive requirement — note this is the opposite edge
+  from Bootstrap's own `md` breakpoint (`min-width: 768px`), so nav show/hide uses a custom
+  `max-width: 768px` media query rather than Bootstrap's `d-md-*` utilities. Keep the 768px
+  cutoff consistent across all components either way.
 - **Static content as data:** bio text, skills, education, work history, project entries,
   and links are defined as plain JS data structures (arrays/objects) co-located with or
   imported by the page that renders them — not hardcoded inline JSX repeated per entry.

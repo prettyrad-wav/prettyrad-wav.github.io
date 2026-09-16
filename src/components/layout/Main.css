@@ -1,0 +1,16 @@
+.main-layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100svh;
+}
+
+.page-content {
+  flex: 1 0 auto;
+}
+
+/* Leave room for the fixed bottom icon nav so it never covers page content. */
+@media (max-width: 768px) {
+  .page-content {
+    padding-bottom: 64px;
+  }
+}
