@@ -3,18 +3,25 @@
    768px desktop/mobile split (kept as our own classes — see Navbar.jsx for
    why this can't be Bootstrap's `d-md-*` utilities). */
 
+/* Dark glass panel (index.css --glass-*) instead of Bootstrap's bg="body"
+   (which was always white, ignoring our own theme) so the header reads
+   against the background video instead of clashing with it. */
 .site-header {
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid var(--glass-border);
   max-height: 10vh;
+  background: var(--glass-bg-strong);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: var(--glass-shadow);
 }
 
 .site-header .nav-link {
-  color: var(--text);
+  color: var(--glass-text-muted);
 }
 
 .site-header .nav-link:hover,
 .site-header .nav-link.active {
-  color: var(--text-h);
+  color: var(--accent);
 }
 
 .logo-button {
@@ -47,8 +54,10 @@
     left: 0;
     right: 0;
     z-index: 1020;
-    background: var(--bg);
-    border-top: 1px solid var(--border);
+    background: var(--glass-bg-strong);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-top: 1px solid var(--glass-border);
   }
 
   .mobile-nav .nav-link {
@@ -59,7 +68,7 @@
     align-items: center;
     gap: 2px;
     padding: 8px 4px;
-    color: var(--text);
+    color: var(--glass-text-muted);
   }
 
   .mobile-nav .nav-link.active {

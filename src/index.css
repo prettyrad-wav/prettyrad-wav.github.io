@@ -11,6 +11,22 @@
   --shadow:
     rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
 
+  /* "Glass" panel tokens — used anywhere content sits directly over the
+     shared background video (header, footer, Home page sections/cards).
+     Fixed values rather than swapped in the prefers-color-scheme block
+     below: the video is a dark night synthwave scene, so panels stay a
+     translucent near-black regardless of OS light/dark setting, matching
+     the neon cyan/pink/purple palette in the site logo. */
+  --glass-bg: rgba(13, 8, 28, 0.72);
+  --glass-bg-strong: rgba(13, 8, 28, 0.9);
+  --glass-border: rgba(192, 132, 252, 0.4);
+  --glass-text: #f6f1ff;
+  --glass-text-muted: #c9bfe8;
+  --glass-shadow:
+    rgba(0, 0, 0, 0.5) 0 12px 32px, rgba(192, 132, 252, 0.12) 0 0 20px;
+  --neon-cyan: #35e2f2;
+  --neon-pink: #ff4fd8;
+
   --sans: "Orbitron", sans-serif;
   --heading: "Press Start 2P", system-ui;
   --mono: "Share Tech Mono", monospace;

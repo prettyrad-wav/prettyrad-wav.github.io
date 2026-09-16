@@ -1,0 +1,26 @@
+/* Legibility over the background video (home-page.feature.md §
+   Feature-Specific Constraints) comes from Main's shared .video-overlay
+   (one blur+tint for the whole page, avoids seams between sections) plus
+   the light text colors below — no per-section background/blur here. */
+
+.intro-name {
+  color: var(--glass-text);
+  margin-bottom: 4px;
+}
+
+.intro-role {
+  font-family: var(--heading);
+  font-size: 18px;
+  color: var(--accent);
+  margin: 0 0 24px;
+  letter-spacing: 0.5px;
+}
+
+.intro-bio {
+  max-width: 640px;
+  margin: 0 auto;
+  color: var(--glass-text-muted);
+  font-size: 17px;
+  line-height: 160%;
+  text-align: left;
+}

@@ -1,13 +1,22 @@
-import { Container } from 'react-bootstrap'
+import IntroSection from '../components/home/IntroSection'
+import SkillsSection from '../components/home/SkillsSection'
+import { technicalSkills, softSkills } from '../components/home/skillsData'
 import './Pages.css'
 
-// Placeholder — full content specified in home-page.feature.md.
+// Home page (home-page.feature.md): composes the introduction, technical
+// skills, and soft skills sections. All content is static data (ai-spec.md
+// §5) — no user input or network calls.
 function Home() {
   return (
-    <Container className="py-5 text-center page-bg">
-      <h1>Home</h1>
-      <p>Home page content coming soon.</p>
-    </Container>
+    <>
+      <IntroSection />
+      <SkillsSection
+        title="Technical Skills"
+        skills={technicalSkills}
+        variant="technical"
+      />
+      <SkillsSection title="Soft Skills & Talents" skills={softSkills} variant="soft" />
+    </>
   )
 }
 

@@ -1,0 +1,17 @@
+/* Legibility over the background video (home-page.feature.md §
+   Feature-Specific Constraints) comes from Main's shared .video-overlay
+   (one blur+tint for the whole page, avoids seams between sections) — no
+   per-section background/blur here. Each variant's title color (cyan for
+   technical, pink for soft skills) is what makes the two sections visually
+   distinct (FR-05) now that there's no background/border between them. */
+.skills-section-title {
+  color: var(--glass-text);
+}
+
+.skills-section--technical .skills-section-title {
+  color: var(--neon-pink);
+}
+
+.skills-section--soft .skills-section-title {
+  color: var(--neon-pink);
+}
