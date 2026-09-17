@@ -1,0 +1,52 @@
+.backoffice-layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100svh;
+}
+
+.backoffice-container {
+  flex: 1 0 auto;
+  padding: 40px 16px 56px;
+}
+
+.backoffice-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.backoffice-header h1 {
+  color: var(--glass-text);
+  margin: 0;
+}
+
+.backoffice-loading {
+  display: flex;
+  justify-content: center;
+  padding: 48px 0;
+  color: var(--glass-text);
+}
+
+.backoffice-empty {
+  text-align: center;
+  padding: 48px 16px;
+  color: var(--glass-text-muted);
+  font-size: 16px;
+}
+
+.backoffice-feedback {
+  margin: 0 0 16px;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.backoffice-feedback-error {
+  color: #450a0a;
+  background: #fecaca;
+  border: 1px solid #ef4444;
+}

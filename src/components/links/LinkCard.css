@@ -1,0 +1,56 @@
+/* Same glass-panel card treatment as the Portfolio page's project cards
+   (ProjectCard.css) — link-page.feature.md's "Visual consistency with Home
+   and Portfolio" constraint. Rendered as an <a> (see LinkCard.jsx `as="a"`)
+   so the whole card is the click target (FR-02), which means undoing the
+   browser's default anchor underline/color and adding a hover/focus state
+   in their place. */
+.link-card {
+  display: block;
+  background: var(--glass-bg-strong);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  box-shadow: var(--glass-shadow);
+  overflow: hidden;
+  text-decoration: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.link-card:hover,
+.link-card:focus-visible {
+  border-color: var(--neon-cyan);
+  box-shadow: var(--glass-shadow), 0 0 0 1px var(--neon-cyan);
+}
+
+.link-card-image {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: rgba(0, 0, 0, 0.2);
+  padding: 1rem;
+}
+
+.link-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.link-card .card-title {
+  font-family: var(--sans);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--glass-text);
+  margin-bottom: 8px;
+}
+
+.link-card:hover .card-title,
+.link-card:focus-visible .card-title {
+  color: var(--neon-cyan);
+}
+
+.link-card .card-text {
+  color: var(--glass-text-muted);
+  font-size: 15px;
+  line-height: 150%;
+}

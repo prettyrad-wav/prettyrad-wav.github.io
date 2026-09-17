@@ -1,0 +1,19 @@
+/* Standalone page — no shared background video here (ai-spec.md §7), so it
+   leans on the plain --bg/--text tokens (index.css) rather than the
+   --glass-* set those assume a video backdrop. */
+.login-page {
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: var(--bg);
+}
+
+.login-container {
+  max-width: 420px;
+}
+
+.login-title {
+  margin-bottom: 24px;
+}

@@ -1,0 +1,86 @@
+/* Glass panel container, matching the header/footer/Home card treatment
+   (index.css --glass-* tokens) so the form reads over the background video
+   instead of floating on plain white. */
+.contact-form {
+  max-width: 560px;
+  margin: 0 auto;
+  background: var(--glass-bg-strong);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  box-shadow: var(--glass-shadow);
+  padding: 32px;
+}
+
+.contact-form .form-label {
+  color: var(--glass-text);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+}
+
+.contact-form .form-control {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--glass-border);
+  color: var(--glass-text);
+  font-family: var(--sans);
+}
+
+.contact-form .form-control::placeholder {
+  color: var(--glass-text-muted);
+  opacity: 0.7;
+}
+
+.contact-form .form-control:focus {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: var(--neon-cyan);
+  color: var(--glass-text);
+  box-shadow: 0 0 0 0.2rem rgba(53, 226, 242, 0.25);
+}
+
+.contact-feedback {
+  margin: 0 0 16px;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.contact-feedback-success {
+  color: #052e16;
+  background: #bbf7d0;
+  border: 1px solid #22c55e;
+}
+
+.contact-feedback-error {
+  color: #450a0a;
+  background: #fecaca;
+  border: 1px solid #ef4444;
+}
+
+.contact-submit-button {
+  display: block;
+  width: 100%;
+  padding: 12px 28px;
+  background: var(--accent);
+  color: var(--glass-text);
+  font-family: var(--sans);
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  border: none;
+  border-radius: 8px;
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+
+.contact-submit-button:hover:not(:disabled),
+.contact-submit-button:focus-visible:not(:disabled) {
+  background: var(--neon-pink);
+  transform: translateY(-2px);
+}
+
+.contact-submit-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}

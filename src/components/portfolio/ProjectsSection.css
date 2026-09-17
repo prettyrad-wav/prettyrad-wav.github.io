@@ -1,0 +1,8 @@
+/* Legibility over the background video comes from Main's shared
+   .video-overlay — no per-section background/blur here. Top divider plus
+   the title color cycling back to cyan gives FR-05's required visual
+   separation from the Work Experience section above it. */
+
+.projects-section-title {
+  color: var(--neon-pink);
+}

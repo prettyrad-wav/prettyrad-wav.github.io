@@ -1,0 +1,19 @@
+.main-layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100svh;
+}
+
+/* .background-video / .video-overlay now live in BackgroundVideo.css —
+   shared with BackOffice. */
+
+.page-content {
+  flex: 1 0 auto;
+}
+
+/* Leave room for the fixed bottom icon nav so it never covers page content. */
+@media (max-width: 768px) {
+  .page-content {
+    padding-bottom: 64px;
+  }
+}

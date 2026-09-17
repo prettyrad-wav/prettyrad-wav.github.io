@@ -1,0 +1,73 @@
+/* Same glass-panel card treatment as the Home page's skill cards
+   (home-page.feature.md / SkillCard.css) — translucent near-black panel,
+   consistent border/shadow/typography — per this feature's "Visual
+   consistency with the Home page" constraint. Layout is horizontal
+   (logo beside text) rather than icon-on-top, to fit an institution name,
+   program, and dates cleanly on one row. */
+.education-entry {
+  background: var(--glass-bg-strong);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  box-shadow: var(--glass-shadow);
+  padding: 20px;
+}
+
+.education-entry-body {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.education-entry-logo {
+  flex: 0 0 auto;
+  width: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.08), transparent 70%);
+  overflow: hidden;
+}
+
+.education-entry-logo img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+.education-entry-text {
+  min-width: 0;
+}
+
+.education-entry .card-title {
+  font-family: var(--sans);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--glass-text);
+  margin-bottom: 4px;
+}
+
+.education-entry-location,
+.education-entry-program {
+  color: var(--glass-text-muted);
+  font-size: 15px;
+  line-height: 145%;
+  margin: 0;
+}
+
+.education-entry-dates {
+  color: var(--accent);
+  font-size: 14px;
+  margin: 4px 0 0;
+}
+
+@media (max-width: 480px) {
+  .education-entry-body {
+    flex-direction: column;
+    text-align: center;
+  }
+}
