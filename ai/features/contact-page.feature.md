@@ -1,4 +1,4 @@
-# Feature Specification — [Feature Name]
+# Feature Specification — Contact Page
 
 **This document specifies one single feature. Read `ai-spec.md` first.**
 
@@ -7,298 +7,273 @@
 - If this feature needs an exception to a global rule, or an extra constraint, state it explicitly in section 2.
 - Implementation must satisfy **both** `ai-spec.md` and this document.
 
-<!--
-HOW TO COMPLETE THIS TEMPLATE
-
-- Copy this file once per feature and rename it, for example `login.feature.md`.
-- Replace every `[...]` placeholder with content taken from the project
-  requirements and your own analysis.
-- Instructions live in HTML comments like this one and stay invisible when the
-  Markdown is rendered. Delete each comment once its section is complete.
-- Write `N/A` for a subsection that genuinely does not apply to this feature
-  (a back-end-only feature has no page, for example). Do not invent content to
-  fill a heading.
-- Golden rule: if a rule is true for the whole project, it belongs in
-  `ai-spec.md`, not here.
--->
-
-- **Feature Name:** [name]
-- **Related Area:** [e.g. front-end, back-end, full-stack, database]
+- **Feature Name:** Contact Page
+- **Related Area:** Full-stack (front-end form + Supabase write)
 
 ---
 
 ## 1. Feature Goal
 
-<!--
-Describe the outcome this feature must provide: what capability is added, who or
-what uses it, and what result they get. Two or three sentences are enough.
-Describe what the feature achieves, not how it will be coded - no file names,
-no libraries, no implementation steps.
--->
-
-[feature goal]
+Give a visitor a low-friction way to reach out to Nick directly from the site — by name, email,
+and message — without leaving the page or opening their own email client. Submitting the form
+persists the message in Supabase so Nick can read it later from the Back Office, and the visitor
+gets clear, immediate confirmation that their message was sent (or a clear notice if it wasn't).
 
 ---
 
 ## 2. Feature Scope
 
-<!--
-Scope draws the boundary of this feature. It answers "what is this feature
-responsible for, and what is deliberately left out?"
-Stay at feature level: do not restate the project scope from `ai-spec.md`.
--->
-
 ### In Scope
 
-<!--
-What this feature must deliver. One line per item.
--->
-
-- [item]
-- [item]
+- The Contact page content rendered inside the shared `Main` layout, reached via the header/mobile
+  nav (`activePage === 'contact'`, no path change per `ai-spec.md` §4).
+- A form with three fields: sender **name** (text), sender **email** (email), and **message**
+  (textarea), each with a visible label or placeholder.
+- Client-side validation: all three fields required, email must be a valid email format,
+  validation errors shown to the user, and submission blocked while validation fails.
+- On valid submission, an `INSERT` into the Supabase `messages` table (`name`, `email`, `message`)
+  through the shared Supabase client.
+- Introducing the shared Supabase client module (`src/lib/supabaseClient.js`) and the
+  `VITE_SUPABASE_URL` / `VITE_SUPABASE_ANON_KEY` environment variables it reads — this is the
+  first feature in the project that needs a live Supabase connection, so it is the one that
+  establishes that client for every later feature (Back Office) to reuse.
+- Visually distinct success and failure feedback after a submission attempt, the form clearing on
+  success, and the success message going away after a few seconds or on the next interaction.
+- Graceful degradation (a clear failure message, no crash) if Supabase is unreachable or
+  unconfigured, per the Global Definition of Done in `ai-spec.md` §6.
 
 ### Out of Scope
 
-<!--
-Related behaviour that could look like part of this feature but is intentionally
-excluded. Name where it lives instead when you know (another feature, a later
-step, or nowhere yet).
--->
-
-- [excluded item]
-- [excluded item]
+- Reading, listing, or deleting stored messages — `back-office.feature.md`.
+- Creating/configuring the Supabase project itself, the `messages` table schema, or its RLS
+  policies — a one-time infra step noted as out of scope in `setup-deploy.feature.md` and
+  `ai-spec.md` §4; this feature only specifies the app-side behavior once that table exists.
+- The header, footer, and the `Main` layout wrapper itself — `header-footer.feature.md`.
+- Any authentication — this form is public and requires no login (`login-page.feature.md`,
+  `back-office.feature.md` are unrelated to this feature).
+- Any confirmation email or notification to Nick beyond the row appearing in Supabase — no email
+  service is part of this project.
 
 ### Feature-Specific Constraints
 
-<!--
-Only constraints that apply to this feature and are NOT already in `ai-spec.md`,
-including any explicit exception to a global rule. Write `N/A` if there are none
-- that is the normal case.
-Example: "This feature must work without JavaScript enabled."
--->
-
-- [constraint, or N/A]
+- **First Supabase connection in the project:** `src/lib/supabaseClient.js` does not exist yet
+  anywhere else in the codebase, so this feature creates it. It must read `VITE_SUPABASE_URL` and
+  `VITE_SUPABASE_ANON_KEY` from environment variables (never hardcoded), per the env var rules in
+  `ai-spec.md` §4 — local `.env` (gitignored, not committed) for development, and the same two
+  variables added as GitHub Actions repository secrets and passed to the build step via `env:` in
+  `deploy.yml` (the passthrough mechanism itself belongs to `setup-deploy.feature.md`).
+- **Legibility over the background video:** because `Main` renders a looping video behind all page
+  content (see `header-footer.feature.md`), the form and its feedback messages must remain
+  readable on top of it, consistent with the card/legibility treatment used on Home, Portfolio,
+  and Links.
+- **Visual consistency:** the Contact page must look like the same site as Home, Portfolio, and
+  Links — same typography scale, color palette, and spacing rhythm, not a differently-styled page
+  bolted on.
 
 ---
 
 ## 3. Requirements
 
-### Functional Requirements
-
-<!--
-Break the feature into small, explicit, testable requirements. Each one states a
-single capability, rule or behaviour that the feature must provide.
-
-- Keep one idea per requirement; split it if it contains "and" twice.
-- Number them FR-01, FR-02, ... and never renumber later: the IDs are referenced
-  by the acceptance criteria in section 9.
-- Requirements say WHAT must happen, not HOW to build it.
-- Requirements define the expected behaviour; section 9 defines how that
-  behaviour is verified. Every requirement must be verifiable by at least one
-  acceptance criterion.
-
-Copy the block below for each requirement.
-Example requirement: "The user can submit the form only when all required fields
-are valid."
--->
-
-### FR-01 — [Requirement Title]
+### FR-01 — Contact Form Fields
 
 **Requirement:**
-[What the feature must do.]
+The page displays a form with a text input for the sender's name, an email input for the sender's
+email, and a textarea for the message, each with a visible label or placeholder.
 
 **Expected Result:**
-[The observable result once this requirement is met.]
+A visitor sees three distinct, clearly-labeled inputs (name, email, message) and can type into
+each one.
 
-### FR-02 — [Requirement Title]
+### FR-02 — Required Field Validation
 
 **Requirement:**
-[What the feature must do.]
+All three fields are required; the form cannot be submitted while any field is empty.
 
 **Expected Result:**
-[The observable result once this requirement is met.]
+Attempting to submit with one or more empty fields does not send any data to Supabase, and a
+validation error (e.g. "Please fill in all fields") is shown to the visitor.
+
+### FR-03 — Email Format Validation
+
+**Requirement:**
+The email field is validated for a proper email format before submission is accepted.
+
+**Expected Result:**
+Entering a value in the email field that is not a valid email format (e.g. missing `@`) blocks
+submission and shows a validation error to the visitor, even if the name and message fields are
+filled in.
+
+### FR-04 — Submission Blocked on Invalid Input
+
+**Requirement:**
+The form does not allow a submission attempt to reach Supabase while any validation rule (FR-02,
+FR-03) is failing — either by disabling the submit action or by rejecting the submission before
+any network call is made.
+
+**Expected Result:**
+No `INSERT` request is ever sent while the form is in an invalid state; the visitor sees the
+relevant validation error(s) instead.
+
+### FR-05 — Supabase Insert on Valid Submission
+
+**Requirement:**
+When all fields pass validation and the visitor submits the form, the app performs an `INSERT`
+into the Supabase `messages` table with the `name`, `email`, and `message` values, using the
+shared Supabase client at `src/lib/supabaseClient.js`.
+
+**Expected Result:**
+A valid submission creates exactly one new row in the `messages` table containing the submitted
+`name`, `email`, and `message`.
+
+### FR-06 — Success and Failure Feedback
+
+**Requirement:**
+After a submission attempt, the visitor is shown a visually distinct success message if the
+`INSERT` succeeds, or a visually distinct failure message if it does not (including when Supabase
+is unreachable or unconfigured). On success, the form fields are cleared, and the success message
+disappears after a few seconds or on the visitor's next interaction.
+
+**Expected Result:**
+A successful submission shows a clearly success-styled message (e.g. green, check icon), empties
+all three fields, and the message later disappears on its own or as soon as the visitor interacts
+with the page again. A failed submission shows a clearly failure-styled message (e.g. red, X
+icon) and leaves the visitor's entered data in place so they can retry.
 
 ---
 
 ## 4. User Flow
 
-<!--
-Describe the expected sequence of events from the user's (or the calling
-system's) point of view: where the interaction starts, what action is taken, what
-the system does in response, what the user sees or receives, and where it ends.
-
-Numbered steps, behaviour only - no functions, no code.
-Add an alternate flow below only when the feature has a meaningful second path
-(for example an invalid input or a failed request); otherwise write `N/A`.
--->
-
 **Main flow**
 
-1. [step]
-2. [step]
-3. [step]
+1. A visitor navigates to the Contact page from the header/mobile nav.
+2. The Contact page renders inside `Main`: a form with name, email, and message fields.
+3. The visitor fills in all three fields with valid values and submits the form.
+4. The app inserts a new row into the Supabase `messages` table via the shared Supabase client.
+5. The visitor sees a success message; the form fields are cleared.
+6. The success message disappears after a few seconds, or as soon as the visitor interacts with
+   the page again.
 
 **Alternate / failure flow**
 
-1. [step, or N/A]
+1. The visitor submits the form with an empty field, or an invalid email format → submission is
+   blocked, no request is sent, and a validation error is shown next to or above the form; the
+   visitor's already-entered values are kept so they can correct the problem.
+2. The visitor submits a fully valid form, but the `INSERT` fails (e.g. Supabase is unreachable or
+   misconfigured) → a visually distinct failure message is shown, the entered field values are
+   kept (not cleared), and the visitor can retry.
 
 ---
 
 ## 5. Interfaces Involved
 
-<!--
-Lists where this feature touches the application, so nobody has to guess which
-page, component or endpoint is concerned.
-Identify existing interfaces and the new ones this feature introduces; mark which
-is which. Do not restate the repository structure from `ai-spec.md`.
-Write `N/A` for a category the feature does not use.
--->
-
 ### Pages
 
-<!--
-Route or file path, plus what the page does for this feature.
-Example: `/contact` - displays the contact form.
--->
-
-- [route/path] - [role in this feature]
+- Contact (`activePage === 'contact'` inside `Main`, no URL path change per `ai-spec.md` §4) —
+  renders this feature's content. Existing file: `src/pages/Contact.jsx` (currently a
+  placeholder).
 
 ### Components
 
-<!--
-Component or module name, plus its responsibility inside this feature.
--->
-
-- [name] - [responsibility]
+- `Contact` (`src/pages/Contact.jsx`) - existing, to be built out. Composes the contact form
+  section for this page.
+- `ContactForm` (new, e.g. `src/components/contact/ContactForm.jsx`) - renders the name/email/
+  message fields, runs client-side validation, triggers the Supabase insert on valid submission,
+  and displays success/failure feedback.
 
 ### Endpoints
 
-<!--
-HTTP method, path, and purpose. Request and response content is described in
-section 6, so keep this line short.
--->
-
-- [METHOD] `[/path]` - [purpose]
+N/A — this feature calls no custom HTTP endpoint. The only network interaction is a direct
+`INSERT` against the Supabase `messages` table through the Supabase JS client (`src/lib/
+supabaseClient.js`), not an endpoint this app defines.
 
 ---
 
 ## 6. Data
 
-<!--
-Document the data this feature receives, returns, stores or modifies. Name the
-fields, and their type or format when it matters (date format, id, number vs
-text). Keep it readable - only include a full schema if this feature actually
-depends on one.
-Do not invent data that the project requirements do not mention.
--->
-
 ### Inputs
 
-<!--
-Data entering the feature: form fields, request body or parameters, uploaded
-files, values read from storage.
-Example: `email` (text, required) - submitted by the contact form.
--->
-
-- [field] ([type/format]) - [source]
+- `name` (text, required) - typed by the visitor into the name field.
+- `email` (text, required, must be a valid email format) - typed by the visitor into the email
+  field.
+- `message` (text, required) - typed by the visitor into the message textarea.
 
 ### Outputs / Returned Data
 
-<!--
-Data the feature produces: response payload, values displayed on screen, status
-codes. Describe the shape, not the serialization details.
--->
-
-- [field or response element] ([type/format]) - [where it goes]
+- Validation error message(s) (text) - displayed on the page when required fields are empty or the
+  email format is invalid.
+- Success message (text/visual) - displayed after a successful Supabase insert.
+- Failure message (text/visual) - displayed if the Supabase insert fails or Supabase is
+  unreachable/unconfigured.
 
 ### Stored / Modified Data
 
-<!--
-What this feature creates, updates or deletes in persistent storage, and where.
-Write `N/A` if the feature stores nothing.
--->
-
-- [what is stored or changed, or N/A]
+- One new row inserted into the Supabase `messages` table per valid submission, with columns
+  `name`, `email`, and `message` (the table's own `id`/timestamp columns, if any, are populated by
+  Supabase itself, not by this feature).
 
 ---
 
 ## 7. Validation
 
-<!--
-Validation rules that are specific to this feature: required values, accepted
-formats, ranges and limits, invalid conditions, and any business rule that must
-hold before the operation is accepted.
-
-For each rule, state what is checked, where it is checked (client, server, or
-both), and what happens when the check fails. The rule must be precise enough
-that another developer can tell whether the implementation is correct.
-Do not repeat global validation conventions already defined in `ai-spec.md`.
-
-Example: "Email: required, must contain '@'; if invalid, the form is not
-submitted and a message appears next to the field."
--->
-
-- **[field or condition]:** [rule] - checked on [client/server/both] - on failure: [result]
-- **[field or condition]:** [rule] - checked on [client/server/both] - on failure: [result]
+- **Name:** required, non-empty after trimming - checked on client - on failure: submission is
+  blocked and a validation error is shown.
+- **Email:** required, must be a valid email format - checked on client - on failure: submission
+  is blocked and a validation error is shown.
+- **Message:** required, non-empty after trimming - checked on client - on failure: submission is
+  blocked and a validation error is shown.
+- **Supabase insert result:** the `INSERT` call's success/error result determines which feedback
+  message is shown - checked on client (the response from the Supabase JS client call) - on
+  failure (network error, Supabase misconfigured/unreachable, or insert rejected): a failure
+  message is shown and the form is not cleared.
 
 ---
 
 ## 8. Expected Behavior
 
-<!--
-Describes what the system does, as observed from outside. Section 3 states the
-requirements; this section states the resulting behaviour in each situation.
-Cover only the cases that are real for this feature - do not invent artificial
-edge cases for a simple feature. Write `N/A` where a subsection does not apply.
--->
-
 ### Success Behavior
 
-<!--
-What happens when everything works: what the user sees, what is returned, what
-changes in the application state.
--->
-
-- [behaviour]
+- The Contact page renders the name/email/message form, legible over the shared background video.
+- A fully valid submission inserts one row into the `messages` table and shows a visually distinct
+  success message (e.g. green, check icon); the form fields are cleared.
+- The success message disappears after a few seconds, or immediately on the visitor's next
+  interaction with the page, whichever comes first.
 
 ### Error / Invalid Behavior
 
-<!--
-What happens when input is invalid, required data does not exist, or a request
-fails: what the user is told, and what the system does or does not change.
--->
-
-- [behaviour]
+- Submitting with any empty field, or an invalid email format, blocks submission, sends no request
+  to Supabase, and shows a validation error; the visitor's already-typed values remain in the
+  fields.
+- If the Supabase insert fails (network error, misconfigured/missing environment variables, or an
+  error returned by Supabase), a visually distinct failure message (e.g. red, X icon) is shown and
+  the entered field values are kept so the visitor can retry without retyping everything.
 
 ### Empty / Edge Cases
 
-<!--
-Feature-specific situations that are neither success nor error: no results to
-display, first use with no data yet, a limit being reached.
--->
-
-- [behaviour, or N/A]
+- **Narrow viewports:** the form fields and feedback messages stack in a single column and remain
+  readable without horizontal scrolling, per the global responsive rules in `ai-spec.md`.
+- **Repeated submissions:** submitting the form again after a successful submission (now cleared)
+  behaves like a fresh submission — validation and insert run again from empty fields.
 
 ---
 
 ## 9. Acceptance Criteria
 
-<!--
-Acceptance criteria answer one question: how can someone objectively verify that
-this feature works?
-
-- Each criterion must be observable and testable, manually or automatically.
-- Write results to verify, not implementation steps.
-- Ban subjective wording such as "works properly" or "looks good".
-- Reference the requirement each criterion verifies, for example (FR-01).
-- Do not introduce new requirements here: everything verified must already be
-  described in sections 3 to 8.
-- The Global Definition of Done in `ai-spec.md` also applies and is not repeated
-  here.
-
-Example: "Submitting the form with an empty email displays an error message and
-sends no request. (FR-02)"
--->
-
-- [ ] [verifiable condition] ([FR-01])
-- [ ] [verifiable condition] ([FR-02])
+- [ ] The Contact page displays a text input for name, an email input for email, and a textarea
+      for message, each with a visible label or placeholder. (FR-01)
+- [ ] Submitting the form with any field empty shows a validation error and sends no request to
+      Supabase. (FR-02)
+- [ ] Submitting the form with an invalid email format (e.g. missing `@`) shows a validation error
+      and sends no request to Supabase, even if name and message are filled in. (FR-03)
+- [ ] The submit action is disabled or rejects submission for as long as any validation rule is
+      failing; no `INSERT` request is observed in this state (e.g. via network inspection). (FR-04)
+- [ ] Submitting a fully valid form results in exactly one new row in the Supabase `messages`
+      table containing the submitted `name`, `email`, and `message`, inserted via the shared
+      client at `src/lib/supabaseClient.js`. (FR-05)
+- [ ] After a successful submission, a visually distinct success message (e.g. green, check icon)
+      appears, all three fields are cleared, and the message disappears after a few seconds or on
+      the next interaction. (FR-06)
+- [ ] After a failed submission (e.g. Supabase temporarily misconfigured), a visually distinct
+      failure message (e.g. red, X icon) appears and the entered field values remain in place.
+      (FR-06)
+- [ ] All Contact page text and the form remain readable over the shared background video at both
+      desktop and mobile widths. (Feature-Specific Constraint, § 2)
