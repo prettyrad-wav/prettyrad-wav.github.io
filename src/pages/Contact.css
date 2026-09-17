@@ -1,0 +1,14 @@
+/* Legibility over the background video comes from Main's shared
+   .video-overlay (see Portfolio.css note) — no per-section background/blur
+   here. */
+.contact-title {
+  color: var(--glass-text);
+  margin-bottom: 4px;
+}
+
+.contact-subtitle {
+  color: var(--glass-text-muted);
+  font-size: 17px;
+  margin: 0 auto 24px;
+  max-width: 480px;
+}
