@@ -1,0 +1,47 @@
+/* Horizontal-scroll container (not the page) keeps the table usable at
+   narrow widths without breaking the page's no-horizontal-scroll rule
+   (ai-spec.md §6; feature spec §8 "Narrow viewports"). */
+.messages-table-wrapper {
+  overflow-x: auto;
+  background: var(--glass-bg-strong);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.messages-table {
+  /* Override Bootstrap 5's table CSS variables directly, matching the
+     --glass-* theme instead of Bootstrap's default light table colors. */
+  --bs-table-bg: transparent;
+  --bs-table-color: var(--glass-text);
+  --bs-table-border-color: var(--glass-border);
+  --bs-table-hover-bg: rgba(255, 255, 255, 0.08);
+  --bs-table-hover-color: var(--glass-text);
+  margin: 0;
+  min-width: 560px;
+}
+
+.messages-table thead th {
+  font-size: 13px;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  color: var(--glass-text-muted);
+}
+
+.messages-table tbody td {
+  vertical-align: middle;
+}
+
+.messages-table-row {
+  cursor: pointer;
+}
+
+.messages-table-row:focus-visible {
+  outline: 2px solid var(--neon-cyan);
+  outline-offset: -2px;
+}
+
+.messages-table-view-button {
+  margin-right: 8px;
+}

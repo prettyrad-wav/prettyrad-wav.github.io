@@ -1,0 +1,15 @@
+.logout-button {
+  border-color: var(--glass-border);
+  color: var(--glass-text);
+  font-family: var(--sans);
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  flex-shrink: 0;
+}
+
+.logout-button:hover,
+.logout-button:focus-visible {
+  background: var(--neon-pink);
+  border-color: var(--neon-pink);
+  color: var(--glass-text);
+}
