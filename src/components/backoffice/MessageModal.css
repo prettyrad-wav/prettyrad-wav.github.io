@@ -1,0 +1,30 @@
+.message-modal .modal-content {
+  background: var(--glass-bg-strong);
+  border: 1px solid var(--glass-border);
+  color: var(--glass-text);
+}
+
+.message-modal .modal-header {
+  border-bottom-color: var(--glass-border);
+}
+
+.message-modal .modal-title {
+  color: var(--glass-text);
+}
+
+/* Bootstrap's default close icon is dark-on-transparent; invert it so it
+   reads against the dark glass panel. */
+.message-modal .btn-close {
+  filter: invert(1) grayscale(1) brightness(2);
+}
+
+.message-modal-meta {
+  margin: 0 0 8px;
+  color: var(--glass-text-muted);
+}
+
+.message-modal-text {
+  margin-top: 16px;
+  white-space: pre-wrap;
+  color: var(--glass-text);
+}
