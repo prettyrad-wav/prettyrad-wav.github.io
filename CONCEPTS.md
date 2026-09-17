@@ -15,46 +15,24 @@
 
 ---
 
-## 🖼️ AI-Generated Assets
-
-> Per `ai-spec.md` §5 ("AI-generated assets"): every AI-generated image notes the tool used.
-
-- **Tool:** ChatGPT
-- **Images:** `src/assets/js-icon.png`, `src/assets/react-jsx-icon.png`,
-  `src/assets/mern-icon.png`, `src/assets/java-spring-icon.png` — vaporwave/synthwave-styled
-  technical skill icons used on the Home page's Technical Skills cards
-  (`home-page.feature.md` FR-06; also noted in a comment above `technicalSkills` in
-  `src/components/home/skillsData.js`).
-- **Images:** `src/assets/cdbxx-retro.png`, `src/assets/tri-county-retro.png`,
-  `src/assets/shaker-ai.png`, `src/assets/ac-ai.png`, `src/assets/codebloggs/cd-ai.png`,
-  `src/assets/rdelivery/rdelivery-ai.png` — retro-style education logos, work-experience
-  icons, and project imagery used on the Portfolio page's Education, Work Experience, and
-  Projects sections (`portfolio-page.feature.md` FR-06; also noted in a comment above each
-  data array in `src/components/portfolio/educationData.js`, `workData.js`, and
-  `projectsData.js`).
-- **Images:** `src/assets/github-retro.png`, `src/assets/cdbxx-retro.png`,
-  `src/assets/retro-odin.png` — retro-style logo icons used on the Links page's GitHub,
-  CodeBoxx Academy, and The Odin Project cards (`link-page.feature.md` FR-04; also noted in
-  a comment above the `links` array in `src/components/links/linksData.js`).
-
 ---
 
 ## ✏️ Concept - 01
 
 **🔤 Name:**
-
+supabase api calls v.s. traditional fetch 
 ...
 
 **🎯 Purpose:**
-
+in this project we use supabase for our project db which is a baas based on postgresql. when making posts requests via the contact form we write a query builder call using methods like .from() and .insert() rather than actually constructing an http request with a try/catch block. There are a few reasons to make a request this way but I think the primary reason is that this matches Postgres/PostgREST's own error semantics. Initally seing the const holding the request as object destructuring caused some confusion but requests done in this way always return an object structured like { data, error } so we capture the error message from the response and decide what to do with the data based on what the error key returns.
 ...
 
 **❓ Why it was challenging:**
-
+Initally seing the const holding the request as object destructuring caused some confusion but requests done in this way always return an object structured like { data, error } so we capture the error message from the response and decide what to do with the data based on what the error key returns.
 ...
 
 **📍 Where (file & line):**
-
+BackOffice.jsx line 39 
 ...
 
 ---
@@ -62,19 +40,26 @@
 ## ✏️ Concept - 02
 
 **🔤 Name:**
-
+which API URL's to use
 ...
 
 **🎯 Purpose:**
-
+in this porject we use two keys/URL's to conncect to supabase, SUPABASE_URL which is the base URL of the projects API, a general pointer to our api.Wea also use SUPABASE_PUBLISHABLE_KEY which Identifies that the request is coming from a public front end, every row still goes through RLS policies.
 ...
 
 **❓ Why it was challenging:**
+this was challenging because the supabase dashboard has multiple API keys with different names and it wasn't clear which ones needed to get used and I ended up using the wrong api keys. I had claude create this table to explain the diferences between the keys 
 
+| Key | Purpose | Where it's used | Can it be public? |
+|---|---|---|---|
+| `SUPABASE_URL` | The base URL of your project's API (`https://xxxx.supabase.co`) | Anywhere — client or server | Yes, always |
+| `anon` / `PUBLISHABLE_KEY` | Identifies the request as coming from your app's public frontend. Every request still goes through **Row Level Security (RLS)** policies — this key alone grants no special access. | Browser/client code | Yes — designed to be embedded in shipped frontend code |
+| `service_role` / `SECRET_KEY` | Bypasses RLS entirely — full admin access to the database, no policy checks. | Trusted server-only code (a backend, an edge function, a CI script) — **never** in browser/frontend bundles | **No** — if this leaks, anyone can read/write/delete any row in any table |
+| `JWKS_URL` | Publishes the public keys used to verify JWTs (the access tokens issued by `signInWithPassword`, etc.) so any service can independently verify a Supabase-issued token is legitimate, without calling Supabase's API each time. | Backend/server-side token verification | Yes, it's public by design |
 ...
 
 **📍 Where (file & line):**
-
+.env.example
 ...
 
 ---
@@ -82,19 +67,19 @@
 ## ✏️ Concept - 03
 
 **🔤 Name:**
-
+deploy.yml
 ...
 
 **🎯 Purpose:**
-
+This page is available via github pages, we created a deploy.yml file which is our CI/CD pipeline which automates the deployement of changes to the live page as they get pushed to main. Vite is the compiler and deploy.yml decides trigger conditions, provides secrets/environment, calls Vite, then ships the output somewhere. 
 ...
 
 **❓ Why it was challenging:**
-
+I've never really seen a yml file and in the last module didn't really understand the concept of a CI/CD pipeline (I'm still not sure I do) after reading through the file and seeing how CI/CD automation is used in practice, its easier to understand how this process is useful. 
 ...
 
 **📍 Where (file & line):**
-
+deploy.yml
 ...
 
 ---
