@@ -1,0 +1,13 @@
+/* Legibility over the background video comes from Main's shared
+   .video-overlay (see Portfolio.css note) — no per-section background/blur
+   here. */
+.links-title {
+  color: var(--glass-text);
+  margin-bottom: 4px;
+}
+
+.links-subtitle {
+  color: var(--glass-text-muted);
+  font-size: 17px;
+  margin: 0 auto;
+}
