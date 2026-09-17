@@ -44,6 +44,15 @@ jobs:
           VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
           VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
 
+      - name: Add SPA fallback for GitHub Pages
+        # GitHub Pages serves static files with no server-side rewrite, so a
+        # direct hit on a client-only route (/login, /backoffice) 404s
+        # unless a 404.html exists. Copying the built index.html there
+        # boots the same app for those routes too (login-page.feature.md
+        # FR-01: "typing /login directly into the address bar loads the
+        # login page").
+        run: cp dist/index.html dist/404.html
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:

@@ -1,0 +1,67 @@
+/* Plain card treatment (not the --glass-* set) — Login has no background
+   video behind it, unlike the public pages (see Login.css note). */
+.login-form {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  padding: 32px;
+}
+
+.login-form .form-label {
+  color: var(--text-h);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+}
+
+.login-form .form-control {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  color: var(--text-h);
+  font-family: var(--sans);
+}
+
+.login-form .form-control:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 0.2rem var(--accent-bg);
+}
+
+.login-feedback {
+  margin: 0 0 16px;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.login-feedback-error {
+  color: #450a0a;
+  background: #fecaca;
+  border: 1px solid #ef4444;
+}
+
+.login-submit-button {
+  display: block;
+  width: 100%;
+  padding: 12px 28px;
+  background: var(--accent);
+  color: #fff;
+  font-family: var(--sans);
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  border: none;
+  border-radius: 8px;
+  transition: opacity 0.15s ease;
+}
+
+.login-submit-button:hover:not(:disabled),
+.login-submit-button:focus-visible:not(:disabled) {
+  opacity: 0.9;
+}
+
+.login-submit-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
