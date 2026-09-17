@@ -32,6 +32,10 @@
   Projects sections (`portfolio-page.feature.md` FR-06; also noted in a comment above each
   data array in `src/components/portfolio/educationData.js`, `workData.js`, and
   `projectsData.js`).
+- **Images:** `src/assets/github-retro.png`, `src/assets/cdbxx-retro.png`,
+  `src/assets/retro-odin.png` — retro-style logo icons used on the Links page's GitHub,
+  CodeBoxx Academy, and The Odin Project cards (`link-page.feature.md` FR-04; also noted in
+  a comment above the `links` array in `src/components/links/linksData.js`).
 
 ---
 
