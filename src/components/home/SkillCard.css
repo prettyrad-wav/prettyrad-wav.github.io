@@ -1,14 +1,13 @@
 /* Card chrome comes from react-bootstrap's Card; these rules add the
-   site's own dark glass panel styling (index.css --glass-*) and the icon
-   treatment — a translucent near-black card instead of a plain white one,
-   consistent with the header/footer/intro band. */
+   site's own themed panel styling (index.css --panel-*) and the icon
+   treatment, consistent with the header/footer/intro band. */
 .skill-card {
-  background: var(--glass-bg-strong);
+  background: var(--panel-bg-strong);
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
-  border: 1px solid var(--glass-border);
+  border: 1px solid var(--panel-border);
   border-radius: 12px;
-  box-shadow: var(--glass-shadow);
+  box-shadow: var(--panel-shadow);
   padding: 8px;
 }
 
@@ -39,12 +38,12 @@
   font-family: var(--sans);
   font-size: 18px;
   font-weight: 700;
-  color: var(--glass-text);
+  color: var(--panel-text);
   text-align: center;
 }
 
 .skill-card .card-text {
-  color: var(--glass-text-muted);
+  color: var(--panel-text-muted);
   font-size: 15px;
   line-height: 145%;
   text-align: center;

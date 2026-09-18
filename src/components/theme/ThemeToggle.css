@@ -1,0 +1,45 @@
+/* Fixed so it reaches every route (App.jsx) regardless of that page's own
+   layout. Bottom-right on desktop, where the header's nav links already
+   occupy the top-right corner; top-right on mobile (≤768px), where the
+   header only shows the logo (desktop-nav is hidden) but the bottom edge is
+   occupied by the fixed mobile icon nav — see Navbar.css for both. */
+.theme-toggle {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  z-index: 1030;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text-h);
+  box-shadow: var(--shadow);
+  cursor: pointer;
+}
+
+.theme-toggle:hover,
+.theme-toggle:focus-visible {
+  color: var(--accent);
+  border-color: var(--accent-border);
+}
+
+.theme-toggle svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+@media (max-width: 768px) {
+  .theme-toggle {
+    bottom: 70px;
+  }
+}

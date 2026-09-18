@@ -3,8 +3,8 @@
    (ai-spec.md §6; feature spec §8 "Narrow viewports"). */
 .messages-table-wrapper {
   overflow-x: auto;
-  background: var(--glass-bg-strong);
-  border: 1px solid var(--glass-border);
+  background: var(--panel-bg-strong);
+  border: 1px solid var(--panel-border);
   border-radius: 12px;
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
@@ -12,12 +12,12 @@
 
 .messages-table {
   /* Override Bootstrap 5's table CSS variables directly, matching the
-     --glass-* theme instead of Bootstrap's default light table colors. */
+     --panel-* theme instead of Bootstrap's default light table colors. */
   --bs-table-bg: transparent;
-  --bs-table-color: var(--glass-text);
-  --bs-table-border-color: var(--glass-border);
-  --bs-table-hover-bg: rgba(255, 255, 255, 0.08);
-  --bs-table-hover-color: var(--glass-text);
+  --bs-table-color: var(--panel-text);
+  --bs-table-border-color: var(--panel-border);
+  --bs-table-hover-bg: var(--panel-hover-tint);
+  --bs-table-hover-color: var(--panel-text);
   margin: 0;
   min-width: 560px;
 }
@@ -26,7 +26,7 @@
   font-size: 13px;
   letter-spacing: 0.4px;
   text-transform: uppercase;
-  color: var(--glass-text-muted);
+  color: var(--panel-text-muted);
 }
 
 .messages-table tbody td {
@@ -38,7 +38,7 @@
 }
 
 .messages-table-row:focus-visible {
-  outline: 2px solid var(--neon-cyan);
+  outline: 2px solid var(--panel-accent-cyan);
   outline-offset: -2px;
 }
 

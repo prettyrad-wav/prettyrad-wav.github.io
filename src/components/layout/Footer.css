@@ -1,15 +1,16 @@
-/* Dark glass panel (index.css --glass-*), matching the header, so the
-   footer reads against the background video instead of a plain white band. */
+/* Themed panel (index.css --panel-*), matching the header, so the footer
+   reads against the background video instead of a plain white band, and
+   flips with the rest of the site's light/dark toggle. */
 .site-footer {
   padding: 32px 0;
-  border-top: 1px solid var(--glass-border);
-  background-color: var(--glass-bg-strong);
+  border-top: 1px solid var(--panel-border);
+  background-color: var(--panel-bg-strong);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
 }
 
 .contact-email {
-  color: var(--glass-text);
+  color: var(--panel-text);
   text-decoration: none;
   font-weight: 500;
   word-break: break-word;
@@ -24,23 +25,33 @@
   display: flex;
   align-items: center;
   gap: 6px;
-  color: var(--glass-text-muted);
+  color: var(--panel-text-muted);
 }
 
 .social-links .nav-link:hover {
   color: var(--accent);
 }
 
+/* icons.svg symbols are drawn in near-black (#08060d), which already
+   reads fine against a light panel; invert them to white only once the
+   resolved theme is dark, so they stay visible against the dark footer. */
 .social-icon {
   width: 18px;
   height: 18px;
-  /* icons.svg symbols are drawn in near-black (#08060d); invert them to
-     white so they're visible on the always-dark glass footer. */
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .social-icon {
+    filter: invert(1) brightness(2);
+  }
+}
+
+:root[data-theme="dark"] .social-icon {
   filter: invert(1) brightness(2);
 }
 
 .copyright {
   font-size: 14px;
-  color: var(--glass-text-muted);
+  color: var(--panel-text-muted);
   margin: 0;
 }
