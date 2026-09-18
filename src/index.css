@@ -11,21 +11,34 @@
   --shadow:
     rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
 
-  /* "Glass" panel tokens — used anywhere content sits directly over the
-     shared background video (header, footer, Home page sections/cards).
-     Fixed values rather than swapped in the prefers-color-scheme block
-     below: the video is a dark night synthwave scene, so panels stay a
-     translucent near-black regardless of OS light/dark setting, matching
-     the neon cyan/pink/purple palette in the site logo. */
+  /* Fixed, never swapped by theme — reserved for content with nothing but
+     the (permanently dark) background video behind it: the video's own
+     tint overlay (--glass-bg, BackgroundVideo.css), and bare text/dividers
+     that render directly on that video with no panel behind them (hero/
+     section headings, page titles, neon dividers). Those have to keep
+     working against a dark backdrop regardless of theme, so they don't
+     get a light variant. Anything that sits inside an actual panel uses
+     the theme-aware --panel-* tokens below instead. */
   --glass-bg: rgba(13, 8, 28, 0.72);
-  --glass-bg-strong: rgba(13, 8, 28, 0.9);
-  --glass-border: rgba(192, 132, 252, 0.4);
   --glass-text: #f6f1ff;
   --glass-text-muted: #c9bfe8;
-  --glass-shadow:
-    rgba(0, 0, 0, 0.5) 0 12px 32px, rgba(192, 132, 252, 0.12) 0 0 20px;
   --neon-cyan: #35e2f2;
   --neon-pink: #ff4fd8;
+
+  /* Theme-aware "panel" tokens — for anything with its own background
+     sitting on top of the video (Navbar, Footer, every card, ContactForm,
+     Back Office's table/modal/logout button). Light values here, dark
+     values (matching today's original glass palette) restated below via
+     the same prefers-color-scheme/data-theme mechanism as the base tokens. */
+  --panel-bg-strong: rgba(255, 255, 255, 0.92);
+  --panel-border: rgba(170, 59, 255, 0.35);
+  --panel-text: #1a1625;
+  --panel-text-muted: #5b5468;
+  --panel-shadow:
+    rgba(0, 0, 0, 0.18) 0 12px 32px, rgba(170, 59, 255, 0.15) 0 0 20px;
+  --panel-accent-cyan: #0e7490;
+  --panel-accent-pink: #be185d;
+  --panel-hover-tint: rgba(0, 0, 0, 0.05);
 
   --sans: "Orbitron", sans-serif;
   --heading: "Press Start 2P", system-ui;
@@ -46,8 +59,11 @@
   }
 }
 
+/* :not([data-theme="light"]) lets an explicit light override (set by
+   ThemeToggle/ThemeContext) suppress this block even on a dark-OS device;
+   with no override present it behaves exactly as before. */
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme="light"]) {
     --text: #9ca3af;
     --text-h: #f3f4f6;
     --bg: #16171d;
@@ -59,6 +75,67 @@
     --social-bg: rgba(47, 48, 58, 0.5);
     --shadow:
       rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
+
+    /* --panel-* dark values are today's original --glass-* numbers, so
+       Navbar/Footer/cards/etc. look exactly as they did before this
+       feature whenever dark is the resolved theme. */
+    --panel-bg-strong: rgba(13, 8, 28, 0.9);
+    --panel-border: rgba(192, 132, 252, 0.4);
+    --panel-text: #f6f1ff;
+    --panel-text-muted: #c9bfe8;
+    --panel-shadow:
+      rgba(0, 0, 0, 0.5) 0 12px 32px, rgba(192, 132, 252, 0.12) 0 0 20px;
+    --panel-accent-cyan: #35e2f2;
+    --panel-accent-pink: #ff4fd8;
+    --panel-hover-tint: rgba(255, 255, 255, 0.08);
+  }
+}
+
+/* Restates the dark values above unconditionally, so an explicit dark
+   override (ThemeToggle) applies even on a light-OS device where the
+   prefers-color-scheme block never matches. */
+:root[data-theme="dark"] {
+  --text: #9ca3af;
+  --text-h: #f3f4f6;
+  --bg: #16171d;
+  --border: #2e303a;
+  --code-bg: #1f2028;
+  --accent: #c084fc;
+  --accent-bg: rgba(192, 132, 252, 0.15);
+  --accent-border: rgba(192, 132, 252, 0.5);
+  --social-bg: rgba(47, 48, 58, 0.5);
+  --shadow:
+    rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
+  --panel-bg-strong: rgba(13, 8, 28, 0.9);
+  --panel-border: rgba(192, 132, 252, 0.4);
+  --panel-text: #f6f1ff;
+  --panel-text-muted: #c9bfe8;
+  --panel-shadow:
+    rgba(0, 0, 0, 0.5) 0 12px 32px, rgba(192, 132, 252, 0.12) 0 0 20px;
+  --panel-accent-cyan: #35e2f2;
+  --panel-accent-pink: #ff4fd8;
+  --panel-hover-tint: rgba(255, 255, 255, 0.08);
+}
+
+/* light-dark-mode.feature.md FR-05: a short transition on the base tokens'
+   consuming properties, so switching themes fades rather than snaps.
+   Scoped to color-related properties only so it doesn't fight
+   component-specific transitions (button hover transforms, etc.) that
+   declare their own `transition` shorthand. */
+*,
+*::before,
+*::after {
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease,
+    border-color 0.3s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition: none;
   }
 }
 

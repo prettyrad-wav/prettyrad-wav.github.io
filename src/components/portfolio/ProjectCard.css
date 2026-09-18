@@ -3,12 +3,12 @@
    fills the card width above the text, like a typical project card, rather
    than the small circular icon used for education/work entries. */
 .project-card {
-  background: var(--glass-bg-strong);
+  background: var(--panel-bg-strong);
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
-  border: 1px solid var(--glass-border);
+  border: 1px solid var(--panel-border);
   border-radius: 12px;
-  box-shadow: var(--glass-shadow);
+  box-shadow: var(--panel-shadow);
   overflow: hidden;
 }
 
@@ -29,7 +29,7 @@
   font-family: var(--sans);
   font-size: 18px;
   font-weight: 700;
-  color: var(--glass-text);
+  color: var(--panel-text);
   margin-bottom: 8px;
 }
 
@@ -42,8 +42,8 @@
 
 .project-card-tech-badge {
   background: var(--accent-bg) !important;
-  border: 1px solid var(--glass-border);
-  color: var(--glass-text) !important;
+  border: 1px solid var(--panel-border);
+  color: var(--panel-text) !important;
   font-family: var(--mono);
   font-weight: 400;
   font-size: 12px;
@@ -51,7 +51,7 @@
 }
 
 .project-card .card-text {
-  color: var(--glass-text-muted);
+  color: var(--panel-text-muted);
   font-size: 15px;
   line-height: 150%;
   margin-bottom: 16px;
@@ -59,17 +59,17 @@
 
 .project-card-link {
   display: inline-block;
-  color: var(--neon-cyan);
+  color: var(--panel-accent-cyan);
   font-family: var(--sans);
   font-size: 15px;
   font-weight: 700;
   text-decoration: none;
-  border-bottom: 1px solid var(--neon-cyan);
+  border-bottom: 1px solid var(--panel-accent-cyan);
   display: none;
 }
 
 .project-card-link:hover,
 .project-card-link:focus-visible {
-  color: var(--neon-pink);
-  border-color: var(--neon-pink);
+  color: var(--panel-accent-pink);
+  border-color: var(--panel-accent-pink);
 }

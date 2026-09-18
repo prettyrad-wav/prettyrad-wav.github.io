@@ -1,6 +1,10 @@
+/* Renders directly on the background video (BackOffice's header has no
+   panel of its own), so it needs its own backdrop rather than relying on
+   --panel-text alone — otherwise it'd be dark-on-dark-video in light mode. */
 .logout-button {
-  border-color: var(--glass-border);
-  color: var(--glass-text);
+  background: var(--panel-bg-strong);
+  border-color: var(--panel-border);
+  color: var(--panel-text);
   font-family: var(--sans);
   font-weight: 700;
   letter-spacing: 0.4px;
@@ -9,7 +13,7 @@
 
 .logout-button:hover,
 .logout-button:focus-visible {
-  background: var(--neon-pink);
-  border-color: var(--neon-pink);
+  background: var(--panel-accent-pink);
+  border-color: var(--panel-accent-pink);
   color: var(--glass-text);
 }

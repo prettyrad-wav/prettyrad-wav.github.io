@@ -5,12 +5,12 @@
    (logo beside text) rather than icon-on-top, to fit an institution name,
    program, and dates cleanly on one row. */
 .education-entry {
-  background: var(--glass-bg-strong);
+  background: var(--panel-bg-strong);
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
-  border: 1px solid var(--glass-border);
+  border: 1px solid var(--panel-border);
   border-radius: 12px;
-  box-shadow: var(--glass-shadow);
+  box-shadow: var(--panel-shadow);
   padding: 20px;
 }
 
@@ -47,13 +47,13 @@
   font-family: var(--sans);
   font-size: 18px;
   font-weight: 700;
-  color: var(--glass-text);
+  color: var(--panel-text);
   margin-bottom: 4px;
 }
 
 .education-entry-location,
 .education-entry-program {
-  color: var(--glass-text-muted);
+  color: var(--panel-text-muted);
   font-size: 15px;
   line-height: 145%;
   margin: 0;

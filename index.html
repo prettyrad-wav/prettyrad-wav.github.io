@@ -6,7 +6,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>prettyrad-wav.github.io</title>
 
-    <!-- fonts --> 
+    <!-- light-dark-mode.feature.md §7 validation "No flash of the wrong
+         theme on load": runs before any stylesheet/module script so a
+         previously-stored explicit override is applied to <html> before
+         first paint. When nothing is stored, data-theme is left unset and
+         the prefers-color-scheme block in index.css decides, exactly as
+         before this feature existed. -->
+    <script>
+      (function () {
+        try {
+          var stored = window.localStorage.getItem('theme')
+          if (stored === 'light' || stored === 'dark') {
+            document.documentElement.setAttribute('data-theme', stored)
+          }
+        } catch (e) {
+          // localStorage unavailable (private browsing, etc.) — no explicit
+          // override to restore; OS prefers-color-scheme still applies.
+        }
+      })()
+    </script>
+
+    <!-- fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
