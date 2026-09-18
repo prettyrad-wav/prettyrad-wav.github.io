@@ -1,4 +1,5 @@
 import { Modal } from 'react-bootstrap'
+import { useLanguage } from '../../i18n/LanguageContext'
 import './MessageModal.css'
 
 // Full date + time for the modal (FR-09); the table's Date column shows the
@@ -15,6 +16,8 @@ function formatDateTime(isoString) {
 // the modal (default `keyboard`/`backdrop` props), which is exactly the
 // three close behaviors FR-10 requires — no extra listeners needed.
 function MessageModal({ message, onClose }) {
+  const { t } = useLanguage()
+
   return (
     <Modal show={Boolean(message)} onHide={onClose} centered className="message-modal">
       <Modal.Header closeButton>
@@ -22,10 +25,11 @@ function MessageModal({ message, onClose }) {
       </Modal.Header>
       <Modal.Body>
         <p className="message-modal-meta">
-          <strong>Email:</strong> {message?.email}
+          <strong>{t('backoffice.modal.email')}</strong> {message?.email}
         </p>
         <p className="message-modal-meta">
-          <strong>Date:</strong> {message ? formatDateTime(message.created_at) : ''}
+          <strong>{t('backoffice.modal.date')}</strong>{' '}
+          {message ? formatDateTime(message.created_at) : ''}
         </p>
         <p className="message-modal-text">{message?.message}</p>
       </Modal.Body>

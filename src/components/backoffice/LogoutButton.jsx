@@ -1,12 +1,14 @@
 import { Button } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom'
 import { supabase } from '../../lib/supabaseClient'
+import { useLanguage } from '../../i18n/LanguageContext'
 import './LogoutButton.css'
 
 // Ends the Supabase Auth session and returns the admin to a public page
 // (FR-11). Self-contained so BackOffice.jsx only has to render it.
 function LogoutButton() {
   const navigate = useNavigate()
+  const { t } = useLanguage()
 
   const handleLogout = async () => {
     if (supabase) {
@@ -20,7 +22,7 @@ function LogoutButton() {
 
   return (
     <Button type="button" variant="outline-light" className="logout-button" onClick={handleLogout}>
-      Log Out
+      {t('backoffice.logout')}
     </Button>
   )
 }

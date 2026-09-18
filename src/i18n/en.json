@@ -1,0 +1,96 @@
+{
+  "nav": {
+    "ariaLabel": "Main navigation"
+  },
+  "home": {
+    "role": "Full-Stack Developer",
+    "bio": "Hi, I’m Nick Hobbs — an entry-level full-stack developer completing an AI-native software development program through CodeBoxx Academy. Before writing code, I spent several years as an HVAC technician, diagnosing complex systems under pressure — a mindset I now bring to breaking down and solving problems in software. I’ve built full-stack web applications using the MERN-stack and mobile applications using React Native with Java & Spring Boot. I’m ready to bring that combination of hands-on problem-solving and technical skill to a development team.",
+    "technicalSkillsTitle": "Technical Skills",
+    "softSkillsTitle": "Soft Skills & Talents"
+  },
+  "portfolio": {
+    "title": "Portfolio",
+    "subtitle": "My education, work history, and project work.",
+    "education": {
+      "title": "Education"
+    },
+    "work": {
+      "title": "Work Experience"
+    },
+    "projects": {
+      "title": "Projects",
+      "viewOnGithub": "View on GitHub"
+    },
+    "resume": {
+      "downloadButton": "Download Resume"
+    }
+  },
+  "links": {
+    "title": "Links",
+    "subtitle": "Where to find my code, and where I learned to write it."
+  },
+  "contact": {
+    "title": "Contact",
+    "subtitle": "Have a project, a question, or just want to say hi? Send a message.",
+    "form": {
+      "ariaLabel": "Contact form",
+      "nameLabel": "Name",
+      "namePlaceholder": "Your name",
+      "emailLabel": "Email",
+      "emailPlaceholder": "you@example.com",
+      "messageLabel": "Message",
+      "messagePlaceholder": "What's on your mind?",
+      "submitButton": "Send Message",
+      "submittingButton": "Sending…"
+    },
+    "validation": {
+      "requiredFields": "Please fill in all fields.",
+      "invalidEmail": "Please enter a valid email address."
+    },
+    "feedback": {
+      "success": "Message sent — thanks for reaching out!",
+      "error": "Something went wrong sending your message. Please try again."
+    }
+  },
+  "login": {
+    "title": "Admin Login",
+    "form": {
+      "ariaLabel": "Login form",
+      "emailLabel": "Email",
+      "emailPlaceholder": "you@example.com",
+      "passwordLabel": "Password",
+      "passwordPlaceholder": "Password",
+      "submitButton": "Log In",
+      "submittingButton": "Logging in…"
+    },
+    "feedback": {
+      "unavailable": "Login is not available right now. Please try again later.",
+      "invalidCredentials": "Invalid login credentials."
+    }
+  },
+  "backoffice": {
+    "title": "Back Office",
+    "logout": "Log Out",
+    "empty": "No messages yet.",
+    "table": {
+      "name": "Name",
+      "email": "Email",
+      "date": "Date",
+      "actions": "Actions",
+      "view": "View",
+      "delete": "Delete"
+    },
+    "modal": {
+      "email": "Email:",
+      "date": "Date:"
+    },
+    "feedback": {
+      "loadError": "Could not load messages. Please try again later.",
+      "deleteError": "Could not delete that message. Please try again.",
+      "deleteUnavailable": "Delete is not available right now. Please try again later."
+    }
+  },
+  "footer": {
+    "copyright": "All rights reserved."
+  }
+}

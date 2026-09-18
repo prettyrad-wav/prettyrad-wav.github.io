@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Form, Button } from 'react-bootstrap'
 import { supabase } from '../../lib/supabaseClient'
+import { useLanguage } from '../../i18n/LanguageContext'
 import './ContactForm.css'
 
 const EMPTY_FORM = { name: '', email: '', message: '' }
@@ -18,6 +19,7 @@ const SUCCESS_MESSAGE_TIMEOUT_MS = 4000
 // client-side, inserts into Supabase on success, and shows success/failure
 // feedback (contact-page.feature.md FR-01 through FR-06).
 function ContactForm() {
+  const { t } = useLanguage()
   const [formData, setFormData] = useState(EMPTY_FORM)
   const [validationError, setValidationError] = useState('')
   const [status, setStatus] = useState('idle') // 'idle' | 'submitting' | 'success' | 'error'
@@ -26,10 +28,10 @@ function ContactForm() {
   // Returns an error string, or '' when the form is valid.
   const validate = ({ name, email, message }) => {
     if (!name.trim() || !email.trim() || !message.trim()) {
-      return 'Please fill in all fields.'
+      return t('contact.validation.requiredFields')
     }
     if (!EMAIL_PATTERN.test(email.trim())) {
-      return 'Please enter a valid email address.'
+      return t('contact.validation.invalidEmail')
     }
     return ''
   }
@@ -90,37 +92,37 @@ function ContactForm() {
       noValidate
       onSubmit={handleSubmit}
       className="contact-form"
-      aria-label="Contact form"
+      aria-label={t('contact.form.ariaLabel')}
     >
       <Form.Group className="mb-3" controlId="contact-name">
-        <Form.Label>Name</Form.Label>
+        <Form.Label>{t('contact.form.nameLabel')}</Form.Label>
         <Form.Control
           type="text"
           name="name"
-          placeholder="Your name"
+          placeholder={t('contact.form.namePlaceholder')}
           value={formData.name}
           onChange={handleChange}
         />
       </Form.Group>
 
       <Form.Group className="mb-3" controlId="contact-email">
-        <Form.Label>Email</Form.Label>
+        <Form.Label>{t('contact.form.emailLabel')}</Form.Label>
         <Form.Control
           type="email"
           name="email"
-          placeholder="you@example.com"
+          placeholder={t('contact.form.emailPlaceholder')}
           value={formData.email}
           onChange={handleChange}
         />
       </Form.Group>
 
       <Form.Group className="mb-3" controlId="contact-message">
-        <Form.Label>Message</Form.Label>
+        <Form.Label>{t('contact.form.messageLabel')}</Form.Label>
         <Form.Control
           as="textarea"
           rows={5}
           name="message"
-          placeholder="What's on your mind?"
+          placeholder={t('contact.form.messagePlaceholder')}
           value={formData.message}
           onChange={handleChange}
         />
@@ -136,12 +138,12 @@ function ContactForm() {
         )}
         {status === 'success' && (
           <p className="contact-feedback contact-feedback-success">
-            Message sent — thanks for reaching out!
+            {t('contact.feedback.success')}
           </p>
         )}
         {status === 'error' && (
           <p className="contact-feedback contact-feedback-error">
-            Something went wrong sending your message. Please try again.
+            {t('contact.feedback.error')}
           </p>
         )}
       </div>
@@ -151,7 +153,9 @@ function ContactForm() {
         className="contact-submit-button"
         disabled={status === 'submitting'}
       >
-        {status === 'submitting' ? 'Sending…' : 'Send Message'}
+        {status === 'submitting'
+          ? t('contact.form.submittingButton')
+          : t('contact.form.submitButton')}
       </Button>
     </Form>
   )

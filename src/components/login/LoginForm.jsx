@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Form, Button } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom'
 import { supabase } from '../../lib/supabaseClient'
+import { useLanguage } from '../../i18n/LanguageContext'
 import './LoginForm.css'
 
 const EMPTY_FORM = { email: '', password: '' }
@@ -11,6 +12,7 @@ const EMPTY_FORM = { email: '', password: '' }
 // (login-page.feature.md FR-04, FR-05, FR-08).
 function LoginForm() {
   const navigate = useNavigate()
+  const { t } = useLanguage()
   const [formData, setFormData] = useState(EMPTY_FORM)
   const [error, setError] = useState('')
   const [status, setStatus] = useState('idle') // 'idle' | 'submitting'
@@ -29,7 +31,7 @@ function LoginForm() {
     // Graceful degradation (ai-spec.md §6): an unconfigured/missing client
     // is treated the same as a failed login rather than throwing.
     if (!supabase) {
-      setError('Login is not available right now. Please try again later.')
+      setError(t('login.feedback.unavailable'))
       setStatus('idle')
       return
     }
@@ -44,7 +46,7 @@ function LoginForm() {
     if (signInError) {
       // FR-08: stay on /login, show a visually distinct error, keep the
       // entered values so the admin can correct and retry.
-      setError('Invalid login credentials.')
+      setError(t('login.feedback.invalidCredentials'))
       setStatus('idle')
       return
     }
@@ -59,27 +61,27 @@ function LoginForm() {
       noValidate
       onSubmit={handleSubmit}
       className="login-form"
-      aria-label="Login form"
+      aria-label={t('login.form.ariaLabel')}
     >
       <Form.Group className="mb-3" controlId="login-email">
-        <Form.Label>Email</Form.Label>
+        <Form.Label>{t('login.form.emailLabel')}</Form.Label>
         <Form.Control
           type="email"
           name="email"
           required
-          placeholder="you@example.com"
+          placeholder={t('login.form.emailPlaceholder')}
           value={formData.email}
           onChange={handleChange}
         />
       </Form.Group>
 
       <Form.Group className="mb-3" controlId="login-password">
-        <Form.Label>Password</Form.Label>
+        <Form.Label>{t('login.form.passwordLabel')}</Form.Label>
         <Form.Control
           type="password"
           name="password"
           required
-          placeholder="Password"
+          placeholder={t('login.form.passwordPlaceholder')}
           value={formData.password}
           onChange={handleChange}
         />
@@ -95,7 +97,7 @@ function LoginForm() {
         className="login-submit-button"
         disabled={status === 'submitting'}
       >
-        {status === 'submitting' ? 'Logging in…' : 'Log In'}
+        {status === 'submitting' ? t('login.form.submittingButton') : t('login.form.submitButton')}
       </Button>
     </Form>
   )

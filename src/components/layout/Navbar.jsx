@@ -1,6 +1,7 @@
 import { Navbar as BsNavbar, Nav, Container } from 'react-bootstrap'
 import logo from '../../assets/retrotangle-tranparent.png'
 import { navLinks } from './navLinks'
+import { localize, useLanguage } from '../../i18n/LanguageContext'
 import './Navbar.css'
 
 // Header/nav for every public page (FR-02, FR-03, FR-04, FR-07).
@@ -10,6 +11,8 @@ import './Navbar.css'
 // Bootstrap's `md` breakpoint flips at `min-width: 768px` while ai-spec.md
 // requires the switch at `max-width: 768px` (mobile is "≤768px").
 function Navbar({ activePage, onNavigate }) {
+  const { language, t } = useLanguage()
+
   return (
     <>
       <BsNavbar sticky="top" className="site-header">
@@ -24,7 +27,7 @@ function Navbar({ activePage, onNavigate }) {
             <img src={logo} alt="Nick Hobbs logo" className="logo" />
           </BsNavbar.Brand>
 
-          <Nav className="desktop-nav ms-auto" aria-label="Main navigation">
+          <Nav className="desktop-nav ms-auto" aria-label={t('nav.ariaLabel')}>
             {navLinks.map((link) => (
               <Nav.Link
                 key={link.id}
@@ -34,14 +37,14 @@ function Navbar({ activePage, onNavigate }) {
                 onClick={() => onNavigate(link.id)}
                 style={{ fontFamily: 'var(--sans)' }}
               >
-                {link.label}
+                {localize(link.label, language)}
               </Nav.Link>
             ))}
           </Nav>
         </Container>
       </BsNavbar>
 
-      <Nav className="mobile-nav" aria-label="Main navigation">
+      <Nav className="mobile-nav" aria-label={t('nav.ariaLabel')}>
         {navLinks.map((link) => (
           <Nav.Link
             key={link.id}
@@ -53,7 +56,7 @@ function Navbar({ activePage, onNavigate }) {
             <svg viewBox="0 0 24 24" aria-hidden="true">
               <path d={link.iconPath} />
             </svg>
-            <span>{link.label}</span>
+            <span>{localize(link.label, language)}</span>
           </Nav.Link>
         ))}
       </Nav>

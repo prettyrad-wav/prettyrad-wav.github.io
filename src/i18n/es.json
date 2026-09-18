@@ -1,0 +1,96 @@
+{
+  "nav": {
+    "ariaLabel": "Navegación principal"
+  },
+  "home": {
+    "role": "Desarrollador Full-Stack",
+    "bio": "Hola, soy Nick Hobbs — un desarrollador full-stack de nivel inicial que está terminando un programa de desarrollo de software nativo de IA en CodeBoxx Academy. Antes de escribir código, pasé varios años como técnico de climatización, diagnosticando sistemas complejos bajo presión — una mentalidad que ahora aplico para desglosar y resolver problemas en el desarrollo de software. He creado aplicaciones web full-stack con el stack MERN y aplicaciones móviles con React Native junto con Java y Spring Boot. Estoy listo para aportar esa combinación de resolución práctica de problemas y habilidades técnicas a un equipo de desarrollo.",
+    "technicalSkillsTitle": "Habilidades técnicas",
+    "softSkillsTitle": "Habilidades blandas y talentos"
+  },
+  "portfolio": {
+    "title": "Portafolio",
+    "subtitle": "Mi formación, mi trayectoria laboral y mis proyectos.",
+    "education": {
+      "title": "Formación académica"
+    },
+    "work": {
+      "title": "Experiencia laboral"
+    },
+    "projects": {
+      "title": "Proyectos",
+      "viewOnGithub": "Ver en GitHub"
+    },
+    "resume": {
+      "downloadButton": "Descargar currículum"
+    }
+  },
+  "links": {
+    "title": "Enlaces",
+    "subtitle": "Dónde encontrar mi código y dónde aprendí a escribirlo."
+  },
+  "contact": {
+    "title": "Contacto",
+    "subtitle": "¿Tienes un proyecto, una pregunta o solo quieres saludar? Envía un mensaje.",
+    "form": {
+      "ariaLabel": "Formulario de contacto",
+      "nameLabel": "Nombre",
+      "namePlaceholder": "Tu nombre",
+      "emailLabel": "Correo electrónico",
+      "emailPlaceholder": "tu@ejemplo.com",
+      "messageLabel": "Mensaje",
+      "messagePlaceholder": "¿Qué tienes en mente?",
+      "submitButton": "Enviar mensaje",
+      "submittingButton": "Enviando…"
+    },
+    "validation": {
+      "requiredFields": "Por favor completa todos los campos.",
+      "invalidEmail": "Por favor introduce una dirección de correo válida."
+    },
+    "feedback": {
+      "success": "Mensaje enviado — ¡gracias por escribir!",
+      "error": "Ocurrió un error al enviar tu mensaje. Por favor, inténtalo de nuevo."
+    }
+  },
+  "login": {
+    "title": "Acceso de administrador",
+    "form": {
+      "ariaLabel": "Formulario de acceso",
+      "emailLabel": "Correo electrónico",
+      "emailPlaceholder": "tu@ejemplo.com",
+      "passwordLabel": "Contraseña",
+      "passwordPlaceholder": "Contraseña",
+      "submitButton": "Iniciar sesión",
+      "submittingButton": "Iniciando sesión…"
+    },
+    "feedback": {
+      "unavailable": "El acceso no está disponible en este momento. Por favor, inténtalo más tarde.",
+      "invalidCredentials": "Credenciales de acceso no válidas."
+    }
+  },
+  "backoffice": {
+    "title": "Panel de administración",
+    "logout": "Cerrar sesión",
+    "empty": "Aún no hay mensajes.",
+    "table": {
+      "name": "Nombre",
+      "email": "Correo electrónico",
+      "date": "Fecha",
+      "actions": "Acciones",
+      "view": "Ver",
+      "delete": "Eliminar"
+    },
+    "modal": {
+      "email": "Correo electrónico:",
+      "date": "Fecha:"
+    },
+    "feedback": {
+      "loadError": "No se pudieron cargar los mensajes. Por favor, inténtalo más tarde.",
+      "deleteError": "No se pudo eliminar ese mensaje. Por favor, inténtalo de nuevo.",
+      "deleteUnavailable": "La eliminación no está disponible en este momento. Por favor, inténtalo más tarde."
+    }
+  },
+  "footer": {
+    "copyright": "Todos los derechos reservados."
+  }
+}

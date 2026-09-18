@@ -1,0 +1,96 @@
+{
+  "nav": {
+    "ariaLabel": "Navigation principale"
+  },
+  "home": {
+    "role": "Développeur Full-Stack",
+    "bio": "Bonjour, je m’appelle Nick Hobbs — un développeur full-stack débutant qui termine actuellement un programme de développement logiciel natif de l’IA à la CodeBoxx Academy. Avant d’écrire du code, j’ai passé plusieurs années comme technicien CVC, à diagnostiquer des systèmes complexes sous pression — un état d’esprit que j’applique aujourd’hui pour décomposer et résoudre des problèmes en programmation. J’ai développé des applications web full-stack avec la pile MERN et des applications mobiles avec React Native associé à Java et Spring Boot. Je suis prêt à apporter cette combinaison de résolution de problèmes concrète et de compétences techniques à une équipe de développement.",
+    "technicalSkillsTitle": "Compétences techniques",
+    "softSkillsTitle": "Compétences relationnelles et qualités"
+  },
+  "portfolio": {
+    "title": "Portfolio",
+    "subtitle": "Ma formation, mon parcours professionnel et mes projets.",
+    "education": {
+      "title": "Formation"
+    },
+    "work": {
+      "title": "Expérience professionnelle"
+    },
+    "projects": {
+      "title": "Projets",
+      "viewOnGithub": "Voir sur GitHub"
+    },
+    "resume": {
+      "downloadButton": "Télécharger le CV"
+    }
+  },
+  "links": {
+    "title": "Liens",
+    "subtitle": "Où trouver mon code, et où j’ai appris à l’écrire."
+  },
+  "contact": {
+    "title": "Contact",
+    "subtitle": "Un projet, une question, ou juste envie de dire bonjour ? Envoyez un message.",
+    "form": {
+      "ariaLabel": "Formulaire de contact",
+      "nameLabel": "Nom",
+      "namePlaceholder": "Votre nom",
+      "emailLabel": "E-mail",
+      "emailPlaceholder": "vous@exemple.com",
+      "messageLabel": "Message",
+      "messagePlaceholder": "Qu’avez-vous en tête ?",
+      "submitButton": "Envoyer le message",
+      "submittingButton": "Envoi en cours…"
+    },
+    "validation": {
+      "requiredFields": "Veuillez remplir tous les champs.",
+      "invalidEmail": "Veuillez saisir une adresse e-mail valide."
+    },
+    "feedback": {
+      "success": "Message envoyé — merci de m’avoir contacté !",
+      "error": "Une erreur s’est produite lors de l’envoi de votre message. Veuillez réessayer."
+    }
+  },
+  "login": {
+    "title": "Connexion administrateur",
+    "form": {
+      "ariaLabel": "Formulaire de connexion",
+      "emailLabel": "E-mail",
+      "emailPlaceholder": "vous@exemple.com",
+      "passwordLabel": "Mot de passe",
+      "passwordPlaceholder": "Mot de passe",
+      "submitButton": "Se connecter",
+      "submittingButton": "Connexion en cours…"
+    },
+    "feedback": {
+      "unavailable": "La connexion n’est pas disponible pour le moment. Veuillez réessayer plus tard.",
+      "invalidCredentials": "Identifiants de connexion invalides."
+    }
+  },
+  "backoffice": {
+    "title": "Back-office",
+    "logout": "Se déconnecter",
+    "empty": "Aucun message pour le moment.",
+    "table": {
+      "name": "Nom",
+      "email": "E-mail",
+      "date": "Date",
+      "actions": "Actions",
+      "view": "Voir",
+      "delete": "Supprimer"
+    },
+    "modal": {
+      "email": "E-mail :",
+      "date": "Date :"
+    },
+    "feedback": {
+      "loadError": "Impossible de charger les messages. Veuillez réessayer plus tard.",
+      "deleteError": "Impossible de supprimer ce message. Veuillez réessayer.",
+      "deleteUnavailable": "La suppression n’est pas disponible pour le moment. Veuillez réessayer plus tard."
+    }
+  },
+  "footer": {
+    "copyright": "Tous droits réservés."
+  }
+}

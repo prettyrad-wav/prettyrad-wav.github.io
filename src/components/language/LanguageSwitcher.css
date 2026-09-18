@@ -1,0 +1,39 @@
+/* Stacked directly above .theme-toggle (ThemeToggle.css): same 40px circular
+   footprint, same right offset, 12px of clearance above it so the two
+   controls never overlap — bottom: 16 (theme-toggle) + 40 (its height) + 12
+   (gap) = 68px. Repositions alongside it at the 768px breakpoint the same
+   way: bottom: 70 (theme-toggle on mobile) + 40 + 12 = 122px. */
+.language-switcher {
+  position: fixed;
+  right: 16px;
+  bottom: 68px;
+  z-index: 1030;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text-h);
+  box-shadow: var(--shadow);
+  cursor: pointer;
+  font-family: var(--sans);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.language-switcher:hover,
+.language-switcher:focus-visible {
+  color: var(--accent);
+  border-color: var(--accent-border);
+}
+
+@media (max-width: 768px) {
+  .language-switcher {
+    bottom: 122px;
+  }
+}
