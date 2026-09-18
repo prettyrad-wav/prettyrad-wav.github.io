@@ -24,3 +24,33 @@
   line-height: 160%;
   text-align: left;
 }
+
+.intro-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.headshot {
+  max-height: 20rem;
+  object-fit: cover;
+  margin-right: 20px;
+  margin-top: 3.25rem;
+  border-radius: 4%;
+}
+
+@media (max-width: 1200px) {
+  .intro-container {
+    flex-direction: column;
+  }
+
+  .headshot {
+    margin-right: 0;
+    margin-bottom: 20px;
+    max-height: 15rem;
+    margin-top: 0;
+    border-radius: 50%;
+  }
+}
