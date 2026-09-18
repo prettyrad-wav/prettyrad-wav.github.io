@@ -6,6 +6,7 @@ import BackgroundVideo from '../components/layout/BackgroundVideo'
 import MessagesTable from '../components/backoffice/MessagesTable'
 import MessageModal from '../components/backoffice/MessageModal'
 import LogoutButton from '../components/backoffice/LogoutButton'
+import { useLanguage } from '../i18n/LanguageContext'
 import './BackOffice.css'
 
 // /backoffice (back-office.feature.md): the admin's private view onto the
@@ -14,6 +15,7 @@ import './BackOffice.css'
 // views, and deletes messages (FR-04–FR-11).
 function BackOffice() {
   const navigate = useNavigate()
+  const { t } = useLanguage()
 
   // Starts true so no table/empty/error state (any hint of message access)
   // can flash before the session check resolves (feature spec §2 "Auth
@@ -85,12 +87,12 @@ function BackOffice() {
   const handleDelete = async (message) => {
     setActionError('')
     if (!supabase) {
-      setActionError('Delete is not available right now. Please try again later.')
+      setActionError(t('backoffice.feedback.deleteUnavailable'))
       return
     }
     const { error } = await supabase.from('messages').delete().eq('id', message.id)
     if (error) {
-      setActionError('Could not delete that message. Please try again.')
+      setActionError(t('backoffice.feedback.deleteError'))
       return
     }
     setMessages((previous) => previous.filter((item) => item.id !== message.id))
@@ -105,7 +107,7 @@ function BackOffice() {
       <BackgroundVideo />
       <Container className="backoffice-container">
         <div className="backoffice-header">
-          <h1>Back Office</h1>
+          <h1>{t('backoffice.title')}</h1>
           <LogoutButton />
         </div>
 
@@ -123,12 +125,12 @@ function BackOffice() {
 
         {fetchStatus === 'error' && (
           <p className="backoffice-feedback backoffice-feedback-error" role="alert">
-            Could not load messages. Please try again later.
+            {t('backoffice.feedback.loadError')}
           </p>
         )}
 
         {fetchStatus === 'success' && messages.length === 0 && (
-          <p className="backoffice-empty">No messages yet.</p>
+          <p className="backoffice-empty">{t('backoffice.empty')}</p>
         )}
 
         {fetchStatus === 'success' && messages.length > 0 && (

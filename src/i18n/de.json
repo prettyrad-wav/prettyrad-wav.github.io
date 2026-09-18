@@ -1,0 +1,96 @@
+{
+  "nav": {
+    "ariaLabel": "Hauptnavigation"
+  },
+  "home": {
+    "role": "Full-Stack-Entwickler",
+    "bio": "Hallo, ich bin Nick Hobbs — ein Full-Stack-Entwickler auf Einstiegsniveau, der gerade ein KI-natives Softwareentwicklungsprogramm an der CodeBoxx Academy abschließt. Bevor ich programmiert habe, habe ich mehrere Jahre als Klimatechniker gearbeitet und komplexe Systeme unter Druck analysiert — eine Denkweise, die ich heute nutze, um Probleme in der Softwareentwicklung zu zerlegen und zu lösen. Ich habe Full-Stack-Webanwendungen mit dem MERN-Stack sowie mobile Anwendungen mit React Native in Kombination mit Java und Spring Boot entwickelt. Ich bin bereit, diese Kombination aus praktischer Problemlösung und technischem Können in ein Entwicklungsteam einzubringen.",
+    "technicalSkillsTitle": "Technische Fähigkeiten",
+    "softSkillsTitle": "Soziale Kompetenzen & Talente"
+  },
+  "portfolio": {
+    "title": "Portfolio",
+    "subtitle": "Meine Ausbildung, mein beruflicher Werdegang und meine Projekte.",
+    "education": {
+      "title": "Ausbildung"
+    },
+    "work": {
+      "title": "Berufserfahrung"
+    },
+    "projects": {
+      "title": "Projekte",
+      "viewOnGithub": "Auf GitHub ansehen"
+    },
+    "resume": {
+      "downloadButton": "Lebenslauf herunterladen"
+    }
+  },
+  "links": {
+    "title": "Links",
+    "subtitle": "Wo du meinen Code findest und wo ich das Programmieren gelernt habe."
+  },
+  "contact": {
+    "title": "Kontakt",
+    "subtitle": "Ein Projekt, eine Frage, oder möchtest du einfach nur Hallo sagen? Schick mir eine Nachricht.",
+    "form": {
+      "ariaLabel": "Kontaktformular",
+      "nameLabel": "Name",
+      "namePlaceholder": "Dein Name",
+      "emailLabel": "E-Mail",
+      "emailPlaceholder": "du@beispiel.com",
+      "messageLabel": "Nachricht",
+      "messagePlaceholder": "Was hast du im Kopf?",
+      "submitButton": "Nachricht senden",
+      "submittingButton": "Wird gesendet…"
+    },
+    "validation": {
+      "requiredFields": "Bitte fülle alle Felder aus.",
+      "invalidEmail": "Bitte gib eine gültige E-Mail-Adresse ein."
+    },
+    "feedback": {
+      "success": "Nachricht gesendet — danke für deine Nachricht!",
+      "error": "Beim Senden deiner Nachricht ist ein Fehler aufgetreten. Bitte versuche es erneut."
+    }
+  },
+  "login": {
+    "title": "Administrator-Anmeldung",
+    "form": {
+      "ariaLabel": "Anmeldeformular",
+      "emailLabel": "E-Mail",
+      "emailPlaceholder": "du@beispiel.com",
+      "passwordLabel": "Passwort",
+      "passwordPlaceholder": "Passwort",
+      "submitButton": "Anmelden",
+      "submittingButton": "Anmeldung läuft…"
+    },
+    "feedback": {
+      "unavailable": "Die Anmeldung ist momentan nicht verfügbar. Bitte versuche es später erneut.",
+      "invalidCredentials": "Ungültige Anmeldedaten."
+    }
+  },
+  "backoffice": {
+    "title": "Back Office",
+    "logout": "Abmelden",
+    "empty": "Noch keine Nachrichten.",
+    "table": {
+      "name": "Name",
+      "email": "E-Mail",
+      "date": "Datum",
+      "actions": "Aktionen",
+      "view": "Ansehen",
+      "delete": "Löschen"
+    },
+    "modal": {
+      "email": "E-Mail:",
+      "date": "Datum:"
+    },
+    "feedback": {
+      "loadError": "Nachrichten konnten nicht geladen werden. Bitte versuche es später erneut.",
+      "deleteError": "Diese Nachricht konnte nicht gelöscht werden. Bitte versuche es erneut.",
+      "deleteUnavailable": "Löschen ist momentan nicht verfügbar. Bitte versuche es später erneut."
+    }
+  },
+  "footer": {
+    "copyright": "Alle Rechte vorbehalten."
+  }
+}

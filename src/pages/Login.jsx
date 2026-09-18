@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { Container } from 'react-bootstrap'
 import { supabase } from '../lib/supabaseClient'
 import LoginForm from '../components/login/LoginForm'
+import { useLanguage } from '../i18n/LanguageContext'
 import './Login.css'
 
 // /login (FR-01, FR-04): deliberately not wrapped in the shared Main layout
@@ -11,6 +12,7 @@ import './Login.css'
 // trigger (SecretAccess), never a link in any nav.
 function Login() {
   const navigate = useNavigate()
+  const { t } = useLanguage()
   // Starts true so the form never flashes before the session check below
   // resolves; only set false once we know the visitor needs to see it.
   const [checkingSession, setCheckingSession] = useState(true)
@@ -47,7 +49,7 @@ function Login() {
   return (
     <section className="login-page">
       <Container className="login-container">
-        <h1 className="login-title text-center">Admin Login</h1>
+        <h1 className="login-title text-center">{t('login.title')}</h1>
         <LoginForm />
       </Container>
     </section>

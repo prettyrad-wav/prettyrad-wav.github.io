@@ -1,4 +1,5 @@
 import { Container, Stack, Nav } from 'react-bootstrap'
+import { useLanguage } from '../../i18n/LanguageContext'
 import './Footer.css'
 
 // Contact/social data as a plain structure (ai-spec.md §5 "Static content as data").
@@ -16,6 +17,7 @@ const socialLinks = [
 
 // Footer for every public page (FR-05): contact email, social links, copyright.
 function Footer() {
+  const { t } = useLanguage()
   const year = new Date().getFullYear()
 
   return (
@@ -42,7 +44,9 @@ function Footer() {
             ))}
           </Nav>
 
-          <p className="copyright">&copy; {year} Nick Hobbs. All rights reserved.</p>
+          <p className="copyright">
+            &copy; {year} Nick Hobbs. {t('footer.copyright')}
+          </p>
         </Stack>
       </Container>
     </footer>
