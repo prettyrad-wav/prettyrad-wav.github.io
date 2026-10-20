@@ -63,17 +63,46 @@ function ContactForm() {
     }
     setValidationError('')
     setStatus('submitting')
-
-    // Graceful degradation (ai-spec.md §6): an unconfigured/missing client
-    // is treated the same as a failed insert rather than throwing.
-    const { error: insertError } = supabase
-      ? await supabase.from('messages').insert({
+        // Email is the source of truth: the visitor sees success if the email
+    // sends. The Supabase insert is a best-effort backup and is allowed to
+    // fail, e.g. when the free project is paused.
+    const [emailResult, supabaseResult] = await Promise.allSettled([
+      fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({
+          access_key: import.meta.env.VITE_WEB3FORMS_ACCESS_KEY,
+          subject: `[Portfolio] New message from ${formData.name.trim()}`,
+          from_name: 'Portfolio contact form',
           name: formData.name.trim(),
           email: formData.email.trim(),
           message: formData.message.trim(),
-        })
-      : { error: new Error('Supabase is not configured.') }
-    if (insertError) {
+        }),
+      }).then((response) => response.json()),
+      supabase
+        ? supabase.from('messages').insert({
+            name: formData.name.trim(),
+            email: formData.email.trim(),
+            message: formData.message.trim(),
+          })
+        : Promise.reject(new Error('Supabase is not configured.')),
+    ])
+
+    // Supabase can fail two ways: the promise rejects, or it resolves with an
+    // `error` field. Log either one, but don't block the visitor.
+    if (supabaseResult.status === 'rejected' || supabaseResult.value.error) {
+      console.warn(
+        'Supabase backup insert failed:',
+        supabaseResult.reason ?? supabaseResult.value.error,
+      )
+    }
+
+    const emailSent =
+      emailResult.status === 'fulfilled' && emailResult.value.success
+    if (!emailSent) {
       // FR-06: keep the visitor's entered values so they can retry.
       setStatus('error')
       return
